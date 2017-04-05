@@ -3,6 +3,8 @@ Soceanic
 
 Final project for Spring 2017 Databases and GUI
 
+Production: http://soceanic.me Test: http://vapeboyz.xyz
+
 Dev Environment Set Up Commands
 -------------------------------
 
