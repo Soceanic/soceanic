@@ -12,11 +12,18 @@ Within the top level folder, type 'vagrant up' to start the vagrant box.
 
 ### Installation Commands
 
-1.	PHP: sudo apt-get install php7.0
-2.	MySQL: sudo apt-get install -y mysql-server
-3.	PHP My Admin: sudo apt-get install phpmyadmin
+1.	MySQL: sudo apt-get install -y mysql-server
 
-Note: To get access to phpmyadmin, add the line 'Include /etc/phpmyadmin/apache.conf' to the end of the /etc/apache2/apache2.conf file
+### Giving vagrant access to /www/data
+
+1.	sudo adduser vagrant www-data
+2.	sudo chown -R www-data:www-data /var/www
+3.	sudo chmod -R g+rw /var/www
+
+### Set up our Github folder
+
+1.	cd /var/www/html
+2.	git clone https://github.com/Soceanic/soceanic.git
 
 AWS
 ---
