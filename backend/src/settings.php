@@ -21,6 +21,6 @@ return [
           'dbname' => 'soceanic',
           'user' => 'root',
           'pass' => 'socialoceansforhumans'
-        ]
-    ]
+        ],
+    ],
 ];
