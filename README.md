@@ -30,7 +30,7 @@ Within the top level folder, type 'vagrant up' to start the vagrant box.
 AWS
 ---
 
-Connecting to the test server through your terminal: ssh -i "soceanic.pem" ubuntu@ec2-34-208-214-73.us-west-2.compute.amazonaws.com
+Connecting to the test server through your terminal: ssh -i "oceial_test.pem" ubuntu@ec2-52-37-26-140.us-west-2.compute.amazonaws.com
 
 I recommended going into your .bash_profile and adding an alias for it
 
