@@ -1,21 +1,26 @@
 <?php
+// Routes for the profile page
 
-$app->get('/users/id', function($username = null) {
-    $sqlGetUser = $pdo->prepare(
-      'SELECT * FROM users WHERE username = ?'
-      );
-    $sqlGetUser->execute([$username]);
-    $user = $sqlGetUser->fetch();  
-  
-    $sqlVerifyUser = $pdo->prepare(
-      'SELECT COUNT(*) FROM users WHERE username = ?'
-      );
-    $sqlVerifyUser->execute([$username]);
-    $userCount = $sqlVerifyUser->fetch(); 
-  
+// Get takes in a username and returns a user's info as Json
+$app->get('/users/id', function($username = null) {  
+    // Ensure the $username field is full
     if (!$username->isEmpty()) {
+        // This counts how many users there are with that username
+        // to verify that the user actually exists
+        $sqlVerifyUser = $pdo->prepare(
+            'SELECT COUNT(*) FROM users WHERE username = ?'
+        );
+        $sqlVerifyUser->execute([$username]);
+        $userCount = $sqlVerifyUser->fetch();
+        
         if ($userCount > 0) {
-           
+            // This sequence stores the user in $user
+            $sqlGetUser = $pdo->prepare(
+                'SELECT * FROM users WHERE username = ?'
+            );
+            $sqlGetUser->execute([$username]);
+            $user = $sqlGetUser->fetch();
+           return $this->response->withJson($user);
         }
     }
   }
