@@ -1,0 +1,14 @@
+<form [formGroup]="registrationForm" (ngSubmit)="register()">
+  <input type="text" class="form-control" placeholder="Name" formControlName="name">
+  <input type="date" class="form-control" placeholder="Birthday MM/DD/YYYY" formControlName="birthday">
+  <input type="text" class="form-control" placeholder="Username" formControlName="username">
+  <input type="text" class="form-control" placeholder="Email" formControlName="email">
+  <input type="password" class="form-control" placeholder="Password" formControlName="password">
+  <button type="submit" class="btn btn-success">Register</button>
+</form>
+
+<p>Result:</p>
+<p>{{registrationForm.value | json}}</p>
+
+<p>Response:</p>
+<p>{{response}}</p>
