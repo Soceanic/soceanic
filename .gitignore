@@ -2,5 +2,5 @@
 oceial.pem
 oceial_test.pem
 **/*.spec.*
-./e2e
+e2e/*
 test.ts
