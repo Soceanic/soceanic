@@ -34,7 +34,7 @@ $app->post('/user', function ($request, $response, $args) {
     $stmt = $pdo->prepare(
       'INSERT INTO Users (username, first_name, last_name, email,
        password, birthday, date_joined) VALUES (username=?, first_name=?,
-       last_name=?, email=?, password=?, birthday=?, TIMESTAMP)'
+       last_name=?, email=?, password=?, birthday=?, CURRENT_TIMESTAMP)'
       )
 
     $stmt->execute([$username, $first_name, $last_name, $email, $password,
