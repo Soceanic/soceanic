@@ -1,3 +1,6 @@
 .vagrant
 oceial.pem
 oceial_test.pem
+**/*.spec.*
+e2e/*
+test.ts
