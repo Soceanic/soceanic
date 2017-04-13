@@ -13,7 +13,7 @@ $app->get('/users/id', function($username = null) {
         $sqlVerifyUser->execute([$username]);
         $userCount = $sqlVerifyUser->fetch();
         
-        if ($userCount == 0) {
+        if ($userCount == 1) {
             // This sequence stores the user in $user
             $sqlGetUser = $pdo->prepare(
                 'SELECT username, first_name, last_name, profile_pic, bg_pic, bio, birthday
