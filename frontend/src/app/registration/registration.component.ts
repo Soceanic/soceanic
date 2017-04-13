@@ -26,8 +26,8 @@ export class RegistrationComponent{
 
   constructor(private fb: FormBuilder, private http: Http) {
     this.registrationForm = fb.group({
-      fname: '',
-      lname: '',
+      first_name: '',
+      last_name: '',
       birthday: '',
       username: '',
       email: '',
