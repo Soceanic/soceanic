@@ -43,13 +43,15 @@ $app->delete('/users/id', function($username = null) {
 				'DELETE FROM users WHERE username = ?'
 			);
 			$sqlGetUser->execute([$username]);
+		}elseif($userCount == 0){
+			return "The user does not exist.";
 		}
 		$sqlVerifyUser->execute([$username]);
 		$userCount = $sqlVerifyUser->fetch();
 		if ($userCount == 0){
-			echo "The user is deleted.";
+			return "The user is deleted.";
 		}else {
-			echo "The deleting function failed.";
+			return "The deleting function failed.";
 		}
 	}
 }); 
