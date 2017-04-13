@@ -26,3 +26,30 @@ $app->get('/users/id', function($username = null) {
     }
   }
 );
+
+$app->delete('/users/id', function($username = null) { 
+	if (!$username->isEmpty()) {
+		// This counts how many users there are with that username
+		// to verify that the user actually exists
+		$sqlVerifyUser = $pdo->prepare(
+			'SELECT COUNT(*) FROM users WHERE username = ?'
+		);
+		$sqlVerifyUser->execute([$username]);
+		$userCount = $sqlVerifyUser->fetch();
+		
+		if ($userCount == 1) {
+			// This sequence stores the user in $user
+			$sqlGetUser = $pdo->prepare(
+				'DELETE FROM users WHERE username = ?'
+			);
+			$sqlGetUser->execute([$username]);
+		}
+		$sqlVerifyUser->execute([$username]);
+		$userCount = $sqlVerifyUser->fetch();
+		if ($userCount == 0){
+			echo "The user is deleted.";
+		}else {
+			echo "The deleting function failed.";
+		}
+	}
+}); 
