@@ -10,7 +10,7 @@ import { Http } from '@angular/http';
 export class RegistrationComponent{
 
   errorMessage: string;
-  registrationUrl: string = 'http://vapeboyz.xyz/user';
+  registrationUrl: string = 'http://vapeboyz.xyz/api/user';
   registrationForm: FormGroup;
   response;
 
