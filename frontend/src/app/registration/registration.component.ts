@@ -10,7 +10,7 @@ import { Http } from '@angular/http';
 export class RegistrationComponent{
 
   errorMessage: string;
-  registrationUrl: string = 'https://private-ad31e-soceanic.apiary-mock.com/users';
+  registrationUrl: string = 'http://vapeboyz.xyz/user';
   registrationForm: FormGroup;
   response;
 
