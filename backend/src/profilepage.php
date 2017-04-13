@@ -16,7 +16,8 @@ $app->get('/users/id', function($username = null) {
         if ($userCount > 0) {
             // This sequence stores the user in $user
             $sqlGetUser = $pdo->prepare(
-                'SELECT * FROM users WHERE username = ?'
+                'SELECT username, first_name, last_name, profile_pic, bg_pic, bio, birthday
+                FROM users WHERE username = ?'
             );
             $sqlGetUser->execute([$username]);
             $user = $sqlGetUser->fetch();
