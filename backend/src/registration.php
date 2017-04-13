@@ -3,7 +3,6 @@
 
 $app->post('/user', function ($request, $response, $args) {
     $data = $request->getParsedBody();
-    $syntax_violated = False;
 
     $username = $data['username'];
     $first_name = $data['first_name'];
@@ -40,12 +39,6 @@ $app->post('/user', function ($request, $response, $args) {
 
     $stmt->execute([$username, $first_name, $last_name, $email, $password,
                     $birthday]);
-
-    // Return if inserted correctly
-    $stmt = $pdo->prepare('SELECT * FROM Users WHERE username=?');
-    $stmt->execute([$username]);
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
 
     return $response->withStatus(201);
 
