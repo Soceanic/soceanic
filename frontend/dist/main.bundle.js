@@ -266,7 +266,7 @@ var RegistrationComponent = (function () {
     function RegistrationComponent(fb, http) {
         this.fb = fb;
         this.http = http;
-        this.registrationUrl = 'http://vapeboyz.xyz/user';
+        this.registrationUrl = 'http://vapeboyz.xyz/api/user';
         this.registrationForm = fb.group({
             first_name: '',
             last_name: '',

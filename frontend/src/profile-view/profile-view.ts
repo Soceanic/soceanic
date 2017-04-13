@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UserRepository } from '../api/user-repository';
+// import { UserRepository } from '../api/user-repository';
 
 @Component({
   moduleId: module.id,
@@ -8,16 +8,16 @@ import { UserRepository } from '../api/user-repository';
   styleUrls: [ 'profile-view.component.css' ],
 })
 
-export class AccountListComponent { 
+export class AccountListComponent {
     profilePicture: string;
     userName: string;
-    userbio: string; 
+    userbio: string;
 
     constructor() {
-      this.picture = userRepository.getProfilePicture();
-
-      this.user = userRepository.getUser();
-
-      this.bio = userRepository.getUserBio();
+    //   this.picture = userRepository.getProfilePicture();
+    //
+    //   this.user = userRepository.getUser();
+    //
+    //   this.bio = userRepository.getUserBio();
     }
 }
