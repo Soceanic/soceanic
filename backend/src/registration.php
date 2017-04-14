@@ -33,8 +33,9 @@ $app->post('/user', function ($request, $response, $args) {
     // Add the entry to the array once all the fields have been verified
     $stmt = $pdo->prepare(
       'INSERT INTO Users (username, first_name, last_name, email,
-       password, birthday, date_joined) VALUES (username=?, first_name=?,
-       last_name=?, email=?, password=?, birthday=?, CURRENT_TIMESTAMP)'
+       password, birthday, verified, last_login, date_joined, last_updated, profile_views)
+       VALUES (\'username=?\', \'first_name=?\', \'last_name=?\', \'email=?\', \'password=?\',
+         \'birthday=?\', 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 0)'
       )
 
     $stmt->execute([$username, $first_name, $last_name, $email, $password,
