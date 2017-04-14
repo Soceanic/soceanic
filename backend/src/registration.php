@@ -44,4 +44,4 @@ $app->post('/user', function ($request, $response, $args) {
 
     return $response->withStatus(201);
 
-})
+});
