@@ -2,7 +2,7 @@
 // Routes for the registration page requests
 
 $app->post('/user', function ($request, $response, $args) {
-    $pdo = $this->db
+    $pdo = $this->db;
     $data = $request->getParsedBody();
 
     $username = $data['username'];
