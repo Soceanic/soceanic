@@ -2,6 +2,7 @@
 // Routes for the registration page requests
 
 $app->post('/user', function ($request, $response, $args) {
+    $pdo = $this->db
     $data = $request->getParsedBody();
 
     $username = $data['username'];
@@ -13,7 +14,7 @@ $app->post('/user', function ($request, $response, $args) {
 
     # Check if json is valid
     if( !isset($username) || !isset($first_name) || !isset($last_name) ||
-        !isset($birthday) || !isset($email) || !isset($plain_password) ||) {
+        !isset($birthday) || !isset($email) || !isset($plain_password) ) {
       return $response->withStatus(418);
     }
 
@@ -36,7 +37,7 @@ $app->post('/user', function ($request, $response, $args) {
        password, birthday, verified, last_login, date_joined, last_updated, profile_views)
        VALUES (\'username=?\', \'first_name=?\', \'last_name=?\', \'email=?\', \'password=?\',
          \'birthday=?\', 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 0)'
-      )
+      );
 
     $stmt->execute([$username, $first_name, $last_name, $email, $password,
                     $birthday]);
