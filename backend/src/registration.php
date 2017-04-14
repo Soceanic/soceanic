@@ -39,13 +39,13 @@ $app->post('/user', function ($request, $response, $args) {
          :birthday, 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 0)"
       );
 
-    $stmt->execute([
-                    "username" => $username,
-                    "first_name" => $first_name,
-                    "last_name" => $last_name,
-                    "email" => $email,
-                    "password" => $password,
-                    "birthday" => $birthday]);
+    $stmt->bindParam("username", $username);
+    $stmt->bindParam("first_name", $first_name);
+    $stmt->bindParam("last_name", $last_name);
+    $stmt->bindParam("email", $email);
+    $stmt->bindParam("password", $password);
+    $stmt->bindParam("birthday", $birthday);
+    $stmt->execute();
 
     return $response->withStatus(201);
 
