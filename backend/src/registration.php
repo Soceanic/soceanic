@@ -3,14 +3,15 @@
 
 $app->post('/user', function ($request, $response, $args) {
     $pdo = $this->db;
-    $data = $request->getParsedBody();
+    $json = $request->getBody();
+    $data = json_decode($json);
 
-    $username = $data['username'];
-    $first_name = $data['first_name'];
-    $last_name = $data['last_name'];
-    $birthday = $data['birthday'];
-    $email = $data['email'];
-    $plain_password = $data['password'];
+    $username = $data->username;
+    $first_name = $data->first_name;
+    $last_name = $data->last_name;
+    $birthday = $data->birthday;
+    $email = $data->email;
+    $plain_password = $data->password;
 
     # Check if json is valid
     if( !isset($username) || !isset($first_name) || !isset($last_name) ||
