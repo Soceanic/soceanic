@@ -35,12 +35,17 @@ $app->post('/user', function ($request, $response, $args) {
     $stmt = $pdo->prepare(
       "INSERT INTO Users (username, first_name, last_name, email,
        password, birthday, verified, last_login, date_joined, last_updated, profile_views)
-       VALUES (username=?, first_name=?, last_name=?, email=?, password=?,
-         birthday=?, 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 0)"
+       VALUES (:username, :first_name, :last_name, :email, :password,
+         :birthday, 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 0)"
       );
 
-    $stmt->execute([$username, $first_name, $last_name, $email, $password,
-                    $birthday]);
+    $stmt->execute([
+                    "username" => $username,
+                    "first_name" => $first_name,
+                    "last_name" => $last_name,
+                    "email" => $email,
+                    "password" => $password,
+                    "birthday" => $birthday]);
 
     return $response->withStatus(201);
 
