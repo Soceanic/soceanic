@@ -13,13 +13,16 @@ $app->post('/user', function ($request, $response, $args) {
     $email = $data->email;
     $plain_password = $data->password;
 
-    # Check if json is valid
+    // Check if json is valid
     if( !isset($username) || !isset($first_name) || !isset($last_name) ||
-        !isset($birthday) || !isset($email) || !isset($plain_password) ) {
+        !isset($birthday) || !isset($email) || !isset($plain_password) ||
+        !empty($username) || !empty($first_name) || !empty($last_name) ||
+        !empty($birthday) || !empty($email) || !empty($plain_password)) {
+
       return $response->withStatus(418);
     }
 
-    # Check if username already exists
+    // Check if username already exists
     $stmt = $pdo->prepare('SELECT * FROM Users WHERE username=?');
     $stmt->execute([$username]);
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -47,6 +50,24 @@ $app->post('/user', function ($request, $response, $args) {
     $stmt->bindParam("password", $password);
     $stmt->bindParam("birthday", $birthday);
     $stmt->execute();
+
+    // // Create verification link
+    // $link
+    // 
+    // require 'vendor/autoload.php';
+    // use Mailgun\Mailgun;
+    //
+    // // Instantiate the client.
+    // $mgClient = new Mailgun('key-66f9eee38890d4831259e636bc487711');
+    // $domain = "soceanic.me";
+    //
+    // // Make the call to the client.
+    // $result = $mgClient->sendMessage($domain, array(
+    //     'from'    => 'soceanic <mailgun@soceanic.me>',
+    //     'to'      => $first_name . ' ' . $last_name ' <' . $email . '>',
+    //     'subject' => 'Verify Your Soceanic Account',
+    //     'text'    => 'Click the following link to verify your account:\n\n' . $link
+    // ));
 
     return $response->withStatus(201);
 
