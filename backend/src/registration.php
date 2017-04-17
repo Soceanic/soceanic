@@ -23,8 +23,9 @@ $app->post('/user', function ($request, $response, $args) {
     }
 
     // Check if username already exists
-    $stmt = $pdo->prepare('SELECT * FROM Users WHERE username=?');
-    $stmt->execute([$username]);
+    $stmt = $pdo->prepare('SELECT * FROM Users WHERE :username');
+    $stmt->bindParam("username", $username);
+    $stmt->execute();
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if($row)
@@ -53,7 +54,7 @@ $app->post('/user', function ($request, $response, $args) {
 
     // // Create verification link
     // $link
-    // 
+    //
     // require 'vendor/autoload.php';
     // use Mailgun\Mailgun;
     //
