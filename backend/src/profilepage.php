@@ -14,12 +14,16 @@ $app->get('/users/id', function($username, $response) {
           FROM users WHERE :username'
     );
 
-    $sql_get_user->execute([$username]);
-    $user = $sqlGetUser->fetch();
+    $sql_get_user->bindParam("username", $username);
+    $sql_get_user->execute();
+    $user = $sql_get_user->fetch();
 
-    return $this->response->withJson($user, 302);
+    if($user) {
+        return $response->withJson($user, 302);
+    } else {
+        return $response->withStatus(404);
     }
-);
+});
 
 $app->delete('/users/id', function($username, $response) {
 	if (!$username->isEmpty()) {
@@ -30,11 +34,12 @@ $app->delete('/users/id', function($username, $response) {
 			return $response->withStatus(418);
 		}
 
-		$sqlGetUser = $pdo->prepare(
-			'DELETE FROM users WHERE username = ?'
+		$sql_delete_user = $pdo->prepare(
+			'DELETE FROM users WHERE :username'
 		);
 
-		$sqlGetUser->execute([$username]);
+    $sql_delete_user->bindParam("username", $username);
+		$sql_delete_user->execute();
 
 		/*
 		$sqlVerifyUser->execute([$username]);
