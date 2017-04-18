@@ -11,6 +11,11 @@ if (PHP_SAPI == 'cli-server') {
 
 require __DIR__ . '/../vendor/autoload.php';
 
+// use the firebase JWT Library previous installed using composer
+use \Firebase\JWT\JWT;
+define('SECRET_KEY','makephpgreatsomeday')
+define('ALGORITHM','HS512')
+
 session_start();
 
 // Instantiate the app

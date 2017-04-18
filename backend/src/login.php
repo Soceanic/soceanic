@@ -1,6 +1,8 @@
 <?php
 // Routes for login requests
 
+$config = Factory::fromFile('config/config.php', true);
+
 $app->post('/user/login', function ($request, $response, $args) {
     $pdo = $this->db;
     $json = $request->getBody();
@@ -10,7 +12,7 @@ $app->post('/user/login', function ($request, $response, $args) {
     $plain_password = $data->password;
 
     if( !isset($username) || !isset($plain_password) ||
-        !empty($username) || !empty($plain_password)) {
+        empty($username) || empty($plain_password)) {
 
       return $response->withStatus(418);
     }
@@ -36,6 +38,25 @@ $app->post('/user/login', function ($request, $response, $args) {
         }
 
         // Create JWT Token
+        $tokenId    = base64_encode(mcrypt_create_iv(32));
+        $issuedAt   = time();
+        $notBefore  = $issuedAt + 10;             //Adding 10 seconds
+        $expire     = $notBefore + 60;            // Adding 60 seconds
+        $serverName = $config->get('serverName'); // Retrieve the server name from config file
+
+        /*
+         * Create the token as an array
+         */
+        $data = [
+            'iat'  => $issuedAt,         // Issued at: time when the token was generated
+            'jti'  => $tokenId,          // Json Token Id: an unique identifier for the token
+            'iss'  => $serverName,       // Issuer
+            'nbf'  => $notBefore,        // Not before
+            'exp'  => $expire,           // Expire
+            'data' => [                  // Data related to the signer user
+                'username' => $username, // User name
+            ]
+        ];
 
       } else {
           return $response->withAddedHeader('WWWW-Authenticate', 'None')->withStatus(401);
