@@ -23,8 +23,19 @@ $app->post('/user', function ($request, $response, $args) {
     }
 
     // Check if username already exists
-    $stmt = $pdo->prepare('SELECT * FROM Users WHERE :username');
+    $stmt = $pdo->prepare('SELECT * FROM Users WHERE username=:username');
     $stmt->bindParam("username", $username);
+    $stmt->execute();
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if($row)
+    {
+      return $response->withStatus(302);
+    }
+
+    // Check if email already exists
+    $stmt = $pdo->prepare('SELECT * FROM Users WHERE email=:email');
+    $stmt->bindParam("email", $email);
     $stmt->execute();
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
