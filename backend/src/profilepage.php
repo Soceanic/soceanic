@@ -7,6 +7,8 @@ $app->get('/users/id', function($request, $response, $args) {
     $json = $request->getBody();
     $data = json_decode($json);
 
+    $username = $data->username;
+    
     // Ensure the $username field is populated
     if ( !$isset($username) || !$isempty($username) ){
 	     return $response->withStatus(418);
