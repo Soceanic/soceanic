@@ -2,7 +2,11 @@
 // Routes for the profile page
 
 // Get takes in a username and returns a user's info as Json
-$app->get('/users/id', function($username, $response) {
+$app->get('/users/id', function($request, $response, $args) {
+    $pdo = $this->db;
+    $json = $request->getBody();
+    $data = json_decode($json);
+
     // Ensure the $username field is populated
     if ( !$isset($username) || !$isempty($username) ){
 	     return $response->withStatus(418);
@@ -25,30 +29,32 @@ $app->get('/users/id', function($username, $response) {
     }
 });
 
-$app->delete('/users/id', function($username, $response) {
-	if (!$username->isEmpty()) {
 
-		// This counts how many users there are with that username
-		// to verify that the user actually exists
-		if (!$isset($username) {
-			return $response->withStatus(418);
-		}
-
-		$sql_delete_user = $pdo->prepare(
-			'DELETE FROM users WHERE :username'
-		);
-
-    $sql_delete_user->bindParam("username", $username);
-		$sql_delete_user->execute();
-
-		/*
-		$sqlVerifyUser->execute([$username]);
-		$userCount = $sqlVerifyUser->fetch();
-		if ($userCount == 0){
-			echo "The user is deleted.";
-		}else {
-			echo "The deleting function failed.";
-		}
-		*/
-	}
-});
+// // This function is part of the settings page and needs to be moved
+// $app->delete('/users/id', function($request, $response, $args) {
+// 	if (!$username->isEmpty()) {
+//
+// 		// This counts how many users there are with that username
+// 		// to verify that the user actually exists
+// 		if (!$isset($username) {
+// 			return $response->withStatus(418);
+// 		}
+//
+// 		$sql_delete_user = $pdo->prepare(
+// 			'DELETE FROM users WHERE :username'
+// 		);
+//
+//     $sql_delete_user->bindParam("username", $username);
+// 		$sql_delete_user->execute();
+//
+// 		/*
+// 		$sqlVerifyUser->execute([$username]);
+// 		$userCount = $sqlVerifyUser->fetch();
+// 		if ($userCount == 0){
+// 			echo "The user is deleted.";
+// 		}else {
+// 			echo "The deleting function failed.";
+// 		}
+// 		*/
+// 	}
+// });
