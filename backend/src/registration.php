@@ -16,8 +16,8 @@ $app->post('/user', function ($request, $response, $args) {
     // Check if json is valid
     if( !isset($username) || !isset($first_name) || !isset($last_name) ||
         !isset($birthday) || !isset($email) || !isset($plain_password) ||
-        !empty($username) || !empty($first_name) || !empty($last_name) ||
-        !empty($birthday) || !empty($email) || !empty($plain_password)) {
+        empty($username) || empty($first_name) || empty($last_name) ||
+        empty($birthday) || empty($email) || empty($plain_password)) {
 
       return $response->withStatus(418);
     }
