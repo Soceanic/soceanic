@@ -20,7 +20,6 @@ return [
           'host' => 'localhost',
           'dbname' => 'soceanic',
           'user' => 'root',
-          'pass' => $_SERVER['DB_PASSWORD']
-        ],
+          'pass' => $_SERVER['DB_PASSWORD'],
     ],
 ];
