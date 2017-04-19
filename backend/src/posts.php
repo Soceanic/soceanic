@@ -64,3 +64,28 @@ $app->get('/post/{post_id}', function ($request, $response, $args) {
     $post = json_encode($row);
     return $response->withJson($post, 302);
 });
+
+// Takes in a username and returns the user's posts
+$app->get('/posts', function($request, $response, $args) {
+    $pdo = $this->db;
+    $json = $request->getBody();
+    $data = json_decode($json);
+    $username = $data->username;
+
+    // Ensure the $username field is populated
+    if ( !$isset($username) || !$isempty($username) ){
+	     return $response->withStatus(418);
+    }
+    // Retrieve the user's posts
+    $posts_sql = $pdo->prepare(
+    	'SELECT * FROM Posts WHERE :username ORDER BY date_created'
+    );
+    $posts_sql->bindParam("username", $username);
+    $posts_sql->execute();
+    $posts = $posts_sql->fetch();
+    if($posts) {
+        return $response->withJson($user, 302);
+    } else {
+        return $response->withStatus(404);
+    }
+});
