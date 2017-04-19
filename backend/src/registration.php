@@ -1,6 +1,9 @@
 <?php
 // Routes for the registration page requests
+use \Firebase\JWT\JWT;
+use Mailgun\Mailgun;
 
+// Creating a new user
 $app->post('/user', function ($request, $response, $args) {
     $pdo = $this->db;
     $json = $request->getBody();
@@ -63,24 +66,48 @@ $app->post('/user', function ($request, $response, $args) {
     $stmt->bindParam("birthday", $birthday);
     $stmt->execute();
 
-    // // Create verification link
-    // $link
-    //
-    // require 'vendor/autoload.php';
-    // use Mailgun\Mailgun;
-    //
-    // // Instantiate the client.
-    // $mgClient = new Mailgun('key-66f9eee38890d4831259e636bc487711');
-    // $domain = "soceanic.me";
-    //
-    // // Make the call to the client.
-    // $result = $mgClient->sendMessage($domain, array(
-    //     'from'    => 'soceanic <mailgun@soceanic.me>',
-    //     'to'      => $first_name . ' ' . $last_name ' <' . $email . '>',
-    //     'subject' => 'Verify Your Soceanic Account',
-    //     'text'    => 'Click the following link to verify your account:\n\n' . $link
-    // ));
+    // Create verification link using a one time jwt
+    $payload = array(
+    "username" => $username,
+    "email" => $email,
+    "exp" => time() + (60 * 60)     // jwt expires in one hour
+    );
+
+    // encode the payload using our secretkey and return the token
+    $token = JWT::encode($payload, $_SERVER['SECRET_KEY']);
+    $link = 'http://soceanic.me/index.php?token=' . $token;
+
+    // Instantiate the client.
+    $mgClient = new Mailgun($_SERVER['MAILGUN_KEY']);
+    $domain = "soceanic.me";
+
+    // Make the call to the client.
+    $result = $mgClient->sendMessage($domain, array(
+        'from'    => 'soceanic <mailgun@soceanic.me>',
+        'to'      => $first_name . ' ' . $last_name ' <' . $email . '>',
+        'subject' => 'Verify Your Soceanic Account',
+        'text'    => 'Click the following link to verify your account:\n\n' . $link
+    ));
 
     return $response->withStatus(201);
 
+});
+
+// Validating a user's email
+$app->get('/user', function ($token, $response) {
+    try {
+      $decoded = JWT::decode($token, $_SERVER['SECRET_KEY'], array($_SERVER['ALGORITHM']));
+    } catch (Exception $e) {
+      return $response->withAddedHeader('WWWW-Authenticate', 'None')->withStatus(401);
+    }
+
+    $username = $decoded->username;
+    $email = $decoded->username;
+
+    $stmt = $pdo->prepare('UPDATE Users SET verified=1 WHERE username=:username AND email=:email');
+    $stmt->bindParam("username", $username);
+    $stmt->bindParam("email", $email);
+    $stmt->execute();
+
+    return $response->withStatus(200);
 });
