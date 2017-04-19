@@ -1,5 +1,7 @@
 <?php
 // Routes for the registration page requests
+use \Firebase\JWT\JWT;
+use Mailgun\Mailgun;
 
 // Creating a new user
 $app->post('/user', function ($request, $response, $args) {
@@ -74,9 +76,6 @@ $app->post('/user', function ($request, $response, $args) {
     // encode the payload using our secretkey and return the token
     $token = JWT::encode($payload, 'SECRET_KEY');
     $link = 'http://soceanic.me/index.php?token=' . $token;
-
-    require 'vendor/autoload.php';
-    use Mailgun\Mailgun;
 
     // Instantiate the client.
     $mgClient = new Mailgun('key-66f9eee38890d4831259e636bc487711');
