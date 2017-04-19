@@ -74,11 +74,11 @@ $app->post('/user', function ($request, $response, $args) {
     );
 
     // encode the payload using our secretkey and return the token
-    $token = JWT::encode($payload, 'SECRET_KEY');
+    $token = JWT::encode($payload, $_SERVER['SECRET_KEY']);
     $link = 'http://soceanic.me/index.php?token=' . $token;
 
     // Instantiate the client.
-    $mgClient = new Mailgun('key-66f9eee38890d4831259e636bc487711');
+    $mgClient = new Mailgun($_SERVER['MAILGUN_KEY']);
     $domain = "soceanic.me";
 
     // Make the call to the client.
@@ -96,7 +96,7 @@ $app->post('/user', function ($request, $response, $args) {
 // Validating a user's email
 $app->get('/user', function ($token, $response) {
     try {
-      $decoded = JWT::decode($token, 'SECRET_KEY', array('HS256'));
+      $decoded = JWT::decode($token, $_SERVER['SECRET_KEY'], array($_SERVER['ALGORITHM']));
     } catch (Exception $e) {
       return $response->withAddedHeader('WWWW-Authenticate', 'None')->withStatus(401);
     }
