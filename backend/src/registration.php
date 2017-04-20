@@ -94,7 +94,7 @@ $app->post('/user', function ($request, $response, $args) {
 });
 
 // Validating a user's email
-$app->get('/user', function ($token, $response) {
+$app->get('/verifyuser', function ($token, $response) {
     try {
       $decoded = JWT::decode($token, $_SERVER['SECRET_KEY'], array($_SERVER['ALGORITHM']));
     } catch (Exception $e) {
