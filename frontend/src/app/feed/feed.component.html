@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="row">
+    <button class="btn btn-success pull-right" (click)="postmodal.show()">New Post</button>
+  </div>
+</div>
+
+<app-post-modal #postmodal>
+  <div class="app-modal-header">
+    New Post
+  </div>
+
+  <div class="app-modal-body">
+    <form id="postform">
+      <label for="title">Title:</label>
+      <input type="text" class="form-control" [(ngModel)]="postmodal.newPost.title" name="title" id="title">
+    </form>
+    <textarea name="text" [(ngModel)]="postmodal.newPost.text" form="postform">New post</textarea>
+  </div>
+
+  <div class="app-modal-footer">
+    <button class="btn btn-success" (click)="postmodal.post()">Post</button>
+    <button class="btn" (click)="postmodal.hide()">Cancel</button>
+  </div>
+</app-post-modal>
+
+
+<div class="container">
+  <div *ngFor="let post of feed">
+    <app-post [post]="post"></app-post>
+  </div>
+</div>
