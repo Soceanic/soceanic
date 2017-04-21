@@ -10,17 +10,19 @@ $app->put('/user', function ($request, $response, $args) {
     $birthday = $data->birthday;
     $email = $data->email;
     $plain_password = $data->password;
-
-    if (isset($username)) {
-      
-    }
     
     if (isset($first_name)) {
-      
+      $stmt = $pdo->prepare( 
+          "UPDATE Users SET first_name=$first_name WHERE username=$username"
+          );
+      $stmt->execute();
     }
     
     if (isset($last_name)) {
-      
+      $stmt = $pdo->prepare( 
+          "UPDATE Users SET last_name=$last_name WHERE username=$username"
+          );
+      $stmt->execute();  
     }
     
     if (isset($birthday)) {
