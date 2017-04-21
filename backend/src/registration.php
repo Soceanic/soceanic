@@ -94,9 +94,9 @@ $app->post('/user', function ($request, $response, $args) {
 });
 
 // Validating a user's email
-$app->get('/user', function ($token, $response) {
+$app->get('/token/[{token}]', function ($request, $response, $args) {
     try {
-      $decoded = JWT::decode($token, $_SERVER['SECRET_KEY'], array($_SERVER['ALGORITHM']));
+      $decoded = JWT::decode($args['token'], $_SERVER['SECRET_KEY'], array($_SERVER['ALGORITHM']));
     } catch (Exception $e) {
       return $response->withAddedHeader('WWWW-Authenticate', 'None')->withStatus(401);
     }
