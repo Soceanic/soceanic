@@ -29,7 +29,7 @@ function upload_image($path, $name) {
     'version'     => 'latest',
     'credentials' => [
         'key'    => 'AKIAIW7J675YPHAN57WA',
-        'secret' => 'm/bWtlemGJISEuZSRtnoNVnV/P3w8m0ZGM9Win0GZ',
+        'secret' => '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',
     ],
 ]);
 
