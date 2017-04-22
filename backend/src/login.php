@@ -22,8 +22,6 @@ $app->post('/user/login', function ($request, $response, $args) {
     $stmt->execute();
     $password = $stmt->fetchColumn();
 
-    echo $password;
-
     if($password) {
       $is_valid = password_verify($plain_password, $password);
       if($is_valid) {
