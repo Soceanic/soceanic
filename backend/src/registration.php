@@ -99,6 +99,7 @@ $app->post('/user', function ($request, $response, $args) {
 
 // Validating a user's email
 $app->get('/token/[{token}]', function ($request, $response, $args) {
+    echo $args['token'];
     try {
       $decoded = JWT::decode($args['token'], $_SERVER['SECRET_KEY'], array($_SERVER['ALGORITHM']));
     } catch (Exception $e) {
@@ -111,7 +112,7 @@ $app->get('/token/[{token}]', function ($request, $response, $args) {
     $stmt = $pdo->prepare('UPDATE Users SET verified=1 WHERE username=:username AND email=:email');
     if (!$stmt) {
       echo "\nPDO::errorInfo():\n";
-      print_r($pdo->errorInfo()); 
+      print_r($pdo->errorInfo());
     }
     $stmt->bindParam("username", $username);
     $stmt->bindParam("email", $email);
