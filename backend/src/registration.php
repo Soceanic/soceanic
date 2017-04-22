@@ -101,7 +101,7 @@ $app->post('/user', function ($request, $response, $args) {
 $app->get('/token/{token}', function ($request, $response, $args) {
     echo $args['token'];
     try {
-      $decoded = JWT::decode($args['token'], $_SERVER['SECRET_KEY'], array($_SERVER['ALGORITHM']));
+      $decoded = JWT::decode($args['token'], $_SERVER['SECRET_KEY'], array('HS256'));
       echo ('/n/n' . $decoded);
     } catch (Exception $e) {
       echo "Exceptoidfsgjiu: " . $e->getMessage();
