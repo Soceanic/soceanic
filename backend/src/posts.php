@@ -19,6 +19,18 @@ $app->get('/post/{post_id}', function ($request, $response, $args) {
       return $response->withStatus(404);
     }
 
-    $post = json_encode($row);
-    return $response->withJson($post, 302);
+    $post_id = $row['post_id'];
+    $data[] = json_encode($row);
+
+    // Get all comments for this post
+    $stmt = $pdo->prepare('SELECT * FROM Comments WHERE post_id=:post_id');
+    $stmt->bindParam("post_id", $id);
+    $stmt->execute();
+
+    while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+
+    }
+
+
+    return $response->withJson(json_encode($data), 302);
 });
