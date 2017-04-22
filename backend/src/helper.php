@@ -2,6 +2,7 @@
 // Assistive functions
 require '../vendor/autoload.php';
 
+use Aws\Credentials\CredentialProvider;
 use Aws\S3\S3Client;
 use Aws\Sdk;
 use \Firebase\JWT\JWT;
@@ -26,10 +27,7 @@ function upload_image($path, $name) {
   $client = new S3Client([
     'region'      => 'us-east-2',
     'version'     => 'latest',
-    'credentials' => [
-        'key'    => $_SERVER['AWS_ACCESS_KEY_ID'],
-        'secret' => $_SERVER['AWS_SECRET_ACCESS_KEY'],
-    ],
+    'credentials' => CredentialProvider::env(),
 ]);
 
   $result = $client->putObject(array(
