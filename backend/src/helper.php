@@ -27,7 +27,6 @@ function upload_image($path, $name) {
   $client = new S3Client([
     'region'      => 'us-east-2',
     'version'     => 'latest',
-    'credentials' => CredentialProvider::env(),
 ]);
 
   $result = $client->putObject(array(
