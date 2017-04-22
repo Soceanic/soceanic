@@ -23,7 +23,10 @@ function validated_user($jwt) {
 function upload_image($path, $name) {
   //Create a S3Client
   $aws = new Aws\Sdk();
-  $client = $sdk->createS3();
+  $client = new S3Client([
+    'region'      => 'us-east-2',
+    'version'     => 'latest',
+]);
 
   $result = $client->putObject(array(
     'Bucket'     => $bucket,
