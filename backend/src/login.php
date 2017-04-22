@@ -2,8 +2,6 @@
 // Routes for login requests
 use \Firebase\JWT\JWT;
 
-$config = Factory::fromFile('config/config.php', true);
-
 $app->post('/user/login', function ($request, $response, $args) {
     $pdo = $this->db;
     $json = $request->getBody();
