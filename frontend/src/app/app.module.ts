@@ -3,6 +3,12 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+import { LandingModule } from 'app/landing/landing.module';
+import { FeedModule } from 'app/feed/feed.module';
+import { GroupModule } from 'app/group/group.module';
+import { ProfileModule } from 'app/profile/profile.module';
+import { SharedModule } from 'app/shared/shared.module';
+
 import { AppComponent } from './app.component';
 
 @NgModule({
@@ -12,7 +18,12 @@ import { AppComponent } from './app.component';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    LandingModule,
+    FeedModule,
+    GroupModule,
+    ProfileModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]

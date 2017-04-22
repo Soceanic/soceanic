@@ -21,6 +21,7 @@ import { Component, OnInit } from '@angular/core';
   </div>
   `
 })
+
 export class ModalComponent {
 
   public visible = false;
