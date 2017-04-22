@@ -89,3 +89,17 @@ $app->get('/posts', function($request, $response, $args) {
         return $response->withStatus(404);
     }
 });
+
+// Returns all of the posts from all users
+$app->get('/posts', function($request, $response, $args) {
+    $pdo = $this->db;
+    $json = $request->getBody();
+    $data = json_decode($json);
+	
+    $posts_sql = $pdo->prepare(
+    	'SELECT * FROM Posts ORDER BY date_created'
+    );
+    $posts_sql->execute();
+    $posts = $posts_sql->fetch();
+    return $response->withJson($user, 302);
+});
