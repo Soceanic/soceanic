@@ -29,7 +29,7 @@ function upload_image($path, $name) {
 ]);
 
   $result = $client->putObject(array(
-    'Bucket'     => $bucket,
+    'Bucket'     => 'images.soceanic.me',
     'Key'        => $name . '.png',
     'SourceFile' => $path,
   ));
