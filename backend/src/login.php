@@ -1,5 +1,6 @@
 <?php
 // Routes for login requests
+use \Firebase\JWT\JWT;
 
 $config = Factory::fromFile('config/config.php', true);
 
