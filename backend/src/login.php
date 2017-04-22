@@ -1,5 +1,7 @@
 <?php
 // Routes for login requests
+require 'helper.php';
+
 use \Firebase\JWT\JWT;
 
 $app->post('/user/login', function ($request, $response, $args) {
@@ -60,5 +62,18 @@ $app->post('/user/login', function ($request, $response, $args) {
       return $response->withStatus(404);
     }
 
+    return $response->withStatus(201);
+});
+
+// Temp to test image uploading
+$app->post('/upload', function ($request, $response, $args) {
+    $pdo = $this->db;
+    $json = $request->getBody();
+    $data = json_decode($json);
+
+    $path = $data->path;
+    $name = $data->name;
+
+    echo upload_image($path, $name);
     return $response->withStatus(201);
 });
