@@ -52,7 +52,10 @@ $app->post('/user/login', function ($request, $response, $args) {
         ];
 
         $token = JWT::encode($payload, $_SERVER['SECRET_KEY']);
-        return $token->withStatus(200);
+        $json = json_encode(array(
+                              "jwt" => $token
+                            ));
+        return $response->withJson($json, 200);
 
       } else {
           return $response->withAddedHeader('WWWW-Authenticate', 'None')->withStatus(401);
