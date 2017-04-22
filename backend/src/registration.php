@@ -77,7 +77,7 @@ $app->post('/user', function ($request, $response, $args) {
 
     // encode the payload using our secretkey and return the token
     $token = JWT::encode($payload, $_SERVER['SECRET_KEY']);
-    $link = 'http://localhost:8080/token/?token=' . $token;
+    $link = 'http://localhost:8080/token/' . $token;
 
     // Instantiate the client.
     $mgClient = new Mailgun($_SERVER['MAILGUN_KEY'], new \Http\Adapter\Guzzle6\Client());
@@ -102,6 +102,7 @@ $app->get('/token/{token}', function ($request, $response, $args) {
     echo $args['token'];
     try {
       $decoded = JWT::decode($args['token'], $_SERVER['SECRET_KEY'], array($_SERVER['ALGORITHM']));
+      echo ('/n/n' . $decoded);
     } catch (Exception $e) {
       return $response->withAddedHeader('WWWW-Authenticate', 'None')->withStatus(401);
     }
