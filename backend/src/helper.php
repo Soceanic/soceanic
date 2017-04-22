@@ -26,6 +26,10 @@ function upload_image($path, $name) {
   $client = new S3Client([
     'region'      => 'us-east-2',
     'version'     => 'latest',
+    'credentials' => [
+        'key'    => $_SERVER['AWS_ACCESS_KEY_ID'],
+        'secret' => $_SERVER['AWS_SECRET_ACCESS_KEY'],
+    ],
 ]);
 
   $result = $client->putObject(array(
