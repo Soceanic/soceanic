@@ -11,15 +11,19 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 export class FeedComponent implements OnInit {
 
   feed: [Post];
+  errorMessage: any;
   currentUser: string = 'borisirl';
-  
+
 
   constructor(private service: FeedService) { }
 
   ngOnInit() {
-    this.feed = this.service.get();
+    this.service.get()
+                 .subscribe(
+                   posts => this.feed = posts,
+                   error => this.errorMessage = <any> error
+                 );
   }
 
-  addPost
 
 }
