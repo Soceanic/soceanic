@@ -83,12 +83,14 @@ $app->post('/user', function ($request, $response, $args) {
     $mgClient = new Mailgun($_SERVER['MAILGUN_KEY'], new \Http\Adapter\Guzzle6\Client());
     $domain = "soceanic.me";
 
+    $html = "<html><p>Click the following link to verify your account:</p><br>
+    <a href='" . $link . "'>Click me!</a></html>";
     // Make the call to the client.
     $result = $mgClient->sendMessage($domain, array(
         'from'    => 'soceanic <mailgun@soceanic.me>',
         'to'      => $first_name . ' ' . $last_name . ' <' . $email . '>',
         'subject' => 'Verify Your Soceanic Account',
-        'text'    => 'Click the following link to verify your account:\n\n' . $link
+        'html'    => $html,
     ));
 
     return $response->withStatus(201);
