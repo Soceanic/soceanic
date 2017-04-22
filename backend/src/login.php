@@ -44,9 +44,7 @@ $app->post('/user/login', function ($request, $response, $args) {
         $payload = [
             'iat'  => $issuedAt,         // Issued at: time when the token was generated
             'jti'  => $tokenId,          // Json Token Id: an unique identifier for the token
-            'data' => [                  // Data related to the signer user
-                'username' => $username, // User name
-            ]
+            'username' => $username,     // User name
         ];
 
         $token = JWT::encode($payload, $_SERVER['SECRET_KEY']);
