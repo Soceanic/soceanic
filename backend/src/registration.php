@@ -115,10 +115,5 @@ $app->get('/token/{token}', function ($request, $response, $args) {
     $stmt->bindParam("username", $username);
     $stmt->execute();
 
-    if (!$stmt) {
-      echo "\nPDO::errorInfo():\n";
-      print_r($pdo->errorInfo());
-    }
-
     return $response->withStatus(200);
 });
