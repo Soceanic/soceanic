@@ -104,6 +104,7 @@ $app->get('/token/{token}', function ($request, $response, $args) {
       $decoded = JWT::decode($args['token'], $_SERVER['SECRET_KEY'], array($_SERVER['ALGORITHM']));
       echo ('/n/n' . $decoded);
     } catch (Exception $e) {
+      echo "Exceptoidfsgjiu: " . $e->getMessage();
       return $response->withAddedHeader('WWWW-Authenticate', 'None')->withStatus(401);
     }
 
