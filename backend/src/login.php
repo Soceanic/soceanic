@@ -2,8 +2,6 @@
 // Routes for login requests
 use \Firebase\JWT\JWT;
 
-$config = Factory::fromFile('config/config.php', true);
-
 $app->post('/user/login', function ($request, $response, $args) {
     $pdo = $this->db;
     $json = $request->getBody();
@@ -32,7 +30,7 @@ $app->post('/user/login', function ($request, $response, $args) {
         $needs_rehash = password_needs_rehash($password, PASSWORD_DEFAULT);
         if($needs_rehash) {
           $password = password_hash($plain_password, PASSWORD_DEFAULT);
-          $stmt = $pdo->prepare('UPDATE Users SET password=:password WHERE username=:username')
+          $stmt = $pdo->prepare('UPDATE Users SET password=:password WHERE username=:username');
           $stmt->bindParam("username", $username);
           $stmt->bindParam("password", $password);
           $stmt->execute();
@@ -41,23 +39,19 @@ $app->post('/user/login', function ($request, $response, $args) {
         // Create JWT Token
         $tokenId    = base64_encode(mcrypt_create_iv(32));
         $issuedAt   = time();
-        $notBefore  = $issuedAt + 10;             //Adding 10 seconds
-        $expire     = $notBefore + 60;            // Adding 60 seconds
-        $serverName = $config->get('serverName'); // Retrieve the server name from config file
 
-        /*
-         * Create the token as an array
-         */
-        $data = [
+        // Create the token as an array
+        $payload = [
             'iat'  => $issuedAt,         // Issued at: time when the token was generated
             'jti'  => $tokenId,          // Json Token Id: an unique identifier for the token
-            'iss'  => $serverName,       // Issuer
-            'nbf'  => $notBefore,        // Not before
-            'exp'  => $expire,           // Expire
-            'data' => [                  // Data related to the signer user
-                'username' => $username, // User name
-            ]
+            'username' => $username,     // User name
         ];
+
+        $token = JWT::encode($payload, $_SERVER['SECRET_KEY']);
+        $json = json_encode(array(
+                              "jwt" => $token
+                            ));
+        return $response->withJson($json, 200);
 
       } else {
           return $response->withAddedHeader('WWWW-Authenticate', 'None')->withStatus(401);
