@@ -87,7 +87,7 @@ $app->post('/user', function ($request, $response, $args) {
     <a href='" . $link . "'>Click me!</a></html>";
     // Make the call to the client.
     $result = $mgClient->sendMessage($domain, array(
-        'from'    => 'soceanic <mailgun@soceanic.me>',
+        'from'    => 'Soceanic <mailgun@soceanic.me>',
         'to'      => $first_name . ' ' . $last_name . ' <' . $email . '>',
         'subject' => 'Verify Your Soceanic Account',
         'html'    => $html,
