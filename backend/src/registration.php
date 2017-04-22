@@ -90,6 +90,7 @@ $app->post('/user', function ($request, $response, $args) {
         'from'    => 'soceanic <mailgun@soceanic.me>',
         'to'      => $first_name . ' ' . $last_name . ' <' . $email . '>',
         'subject' => 'Verify Your Soceanic Account',
+        'text'    => '',
         'html'    => $html,
     ));
 
