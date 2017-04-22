@@ -77,7 +77,7 @@ $app->post('/user', function ($request, $response, $args) {
 
     // encode the payload using our secretkey and return the token
     $token = JWT::encode($payload, $_SERVER['SECRET_KEY']);
-    $link = 'http://soceanic.me/index.php/token?token=' . $token;
+    $link = 'http://localhost:8080/token/token?token=' . $token;
 
     // Instantiate the client.
     $mgClient = new Mailgun($_SERVER['MAILGUN_KEY'], new \Http\Adapter\Guzzle6\Client());
@@ -90,7 +90,6 @@ $app->post('/user', function ($request, $response, $args) {
         'from'    => 'soceanic <mailgun@soceanic.me>',
         'to'      => $first_name . ' ' . $last_name . ' <' . $email . '>',
         'subject' => 'Verify Your Soceanic Account',
-        'text'    => '',
         'html'    => $html,
     ));
 
