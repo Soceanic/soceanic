@@ -24,10 +24,11 @@ require __DIR__ . '/../src/dependencies.php';
 require __DIR__ . '/../src/middleware.php';
 
 // Register all routes files ---------------------------------------------------------
-require __DIR__ . '/../src/routes.php';
-require __DIR__ . '/../src/registration.php';
 require __DIR__ . '/../src/login.php';
+// Put all static routes above this line cause fuck php and slim in particular
+require __DIR__ . '/../src/registration.php';
 require __DIR__ . '/../src/posts.php';
+require __DIR__ . '/../src/routes.php';
 
 // Run app
 $app->run();

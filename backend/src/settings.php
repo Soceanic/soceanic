@@ -21,5 +21,6 @@ return [
           'dbname' => 'soceanic',
           'user' => 'root',
           'pass' => $_SERVER['DB_PASSWORD'],
+        ],
     ],
 ];
