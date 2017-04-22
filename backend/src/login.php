@@ -34,7 +34,7 @@ $app->post('/user/login', function ($request, $response, $args) {
         $needs_rehash = password_needs_rehash($password, PASSWORD_DEFAULT);
         if($needs_rehash) {
           $password = password_hash($plain_password, PASSWORD_DEFAULT);
-          $stmt = $pdo->prepare('UPDATE Users SET password=:password WHERE username=:username')
+          $stmt = $pdo->prepare('UPDATE Users SET password=:password WHERE username=:username');
           $stmt->bindParam("username", $username);
           $stmt->bindParam("password", $password);
           $stmt->execute();
