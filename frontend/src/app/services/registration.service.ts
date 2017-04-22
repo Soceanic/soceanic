@@ -6,12 +6,10 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
-
-
 @Injectable()
 export class RegistrationService {
 
-  private regUrl = 'http://vapeboyz.xyz/api/user';
+  private regUrl: string = 'http://vapeboyz.xyz/api/user';
 
   constructor(private http: Http) { }
 

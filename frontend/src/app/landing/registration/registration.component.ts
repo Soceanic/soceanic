@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 
 import { RegistrationService } from 'app/services/registration.service';
@@ -13,11 +13,9 @@ import { Observable } from 'rxjs/Observable';
 })
 export class RegistrationComponent implements OnInit, OnDestroy {
 
-
   private reg: Registration;
   form: FormGroup;
   submitted: boolean = false;
-
 
   constructor(private service: RegistrationService, private fb: FormBuilder) { }
 
@@ -127,10 +125,11 @@ register(){
   this.submitted = true;
   this.reg = this.form.value;
   this.service.register(this.reg)
-  .subscribe(
-    user => console.log(user),
-    error => console.log(error)
-  );
-}
+              .subscribe(
+                user => console.log(user),
+                error => console.log(error)
+              );
+
+  }
 
 }

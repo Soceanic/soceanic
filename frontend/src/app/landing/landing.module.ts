@@ -12,6 +12,11 @@ import { ModalComponent } from 'app/shared/modal/modal.component';
 
 import { LandingRoutingModule } from './landing-routing.module';
 
+import { Login } from 'app/services/objects/login';
+import { AuthService } from 'app/services/auth.service';
+import { LoginComponent } from './login/login.component';
+
+
 @NgModule({
   imports: [
     CommonModule,
@@ -19,12 +24,14 @@ import { LandingRoutingModule } from './landing-routing.module';
     ReactiveFormsModule,
     LandingRoutingModule
   ],
-  declarations: [RegistrationComponent, LandingComponent],
+  declarations: [RegistrationComponent, LandingComponent, LoginComponent],
   providers: [
     Registration,
-    RegistrationService
+    RegistrationService,
+    Login,
+    AuthService
   ],
-  exports: [RegistrationComponent, LandingComponent]
+  exports: [RegistrationComponent, LandingComponent, LoginComponent]
 })
 
 export class LandingModule { }
