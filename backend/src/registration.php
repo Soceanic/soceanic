@@ -77,10 +77,10 @@ $app->post('/user', function ($request, $response, $args) {
 
     // encode the payload using our secretkey and return the token
     $token = JWT::encode($payload, $_SERVER['SECRET_KEY']);
-    $link = 'http://soceanic.me/index.php?token=' . $token;
+    $link = 'http://soceanic.me/index.php/token?token=' . $token;
 
     // Instantiate the client.
-    $mgClient = new Mailgun($_SERVER['MAILGUN_KEY']);
+    $mgClient = new Mailgun($_SERVER['MAILGUN_KEY'], new \Http\Adapter\Guzzle6\Client());
     $domain = "soceanic.me";
 
     // Make the call to the client.
