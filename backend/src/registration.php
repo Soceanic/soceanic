@@ -1,6 +1,6 @@
 <?php
 // Routes for the registration page requests
-require 'vendor/autoload.php';
+require '../vendor/autoload.php';
 
 use \Firebase\JWT\JWT;
 use Mailgun\Mailgun;
