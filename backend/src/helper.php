@@ -3,7 +3,7 @@
 require '../vendor/autoload.php';
 
 use Aws\S3\S3Client;
-use Aws\Common\Aws;
+use Aws\Sdk;
 use Aws\Exception\AwsException;
 use \Firebase\JWT\JWT;
 
