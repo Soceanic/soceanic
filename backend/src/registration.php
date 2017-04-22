@@ -111,16 +111,14 @@ $app->get('/token/{token}', function ($request, $response, $args) {
     }
 
     $username = $decoded->username;
-    $email = $decoded->username;
+    $stmt = $pdo->prepare('UPDATE Users SET verified=1 WHERE username=:username');
+    $stmt->bindParam("username", $username);
+    $stmt->execute();
 
-    $stmt = $pdo->prepare('UPDATE Users SET verified=1 WHERE username=:username AND email=:email');
     if (!$stmt) {
       echo "\nPDO::errorInfo():\n";
       print_r($pdo->errorInfo());
     }
-    $stmt->bindParam("username", $username);
-    $stmt->bindParam("email", $email);
-    $stmt->execute();
 
     return $response->withStatus(200);
 });
