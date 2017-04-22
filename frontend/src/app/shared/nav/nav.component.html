@@ -1,3 +1,7 @@
-<p>
-  nav works!
-</p>
+<nav id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+      <li *ngFor="let link of links">
+        <a class="sidebar-brand" routerLink="{{link.url}}" routerLinkActive="active">{{link.name}}</a>
+      </li>
+    </ul>
+</nav>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, Routes } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -6,6 +7,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
+
+  links = [
+    {
+      'url': '/home',
+      'name': 'Home'
+    },
+    {
+      'url': '/register',
+      'name': 'Registration'
+    },
+    {
+      'url': '/login',
+      'name': 'Login'
+    }
+  ];
 
   constructor() { }
 

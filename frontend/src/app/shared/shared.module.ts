@@ -5,11 +5,14 @@ import { GridComponent } from './grid/grid.component';
 import { PostFocusComponent } from './post-focus/post-focus.component';
 import { NavComponent } from './nav/nav.component';
 import { PostComponent } from './post/post.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule
   ],
-  declarations: [ModalComponent, GridComponent, PostFocusComponent, NavComponent, PostComponent]
+  declarations: [ModalComponent, GridComponent, PostFocusComponent, NavComponent, PostComponent],
+  exports: [ModalComponent, GridComponent, PostFocusComponent, NavComponent, PostComponent]
 })
 export class SharedModule { }

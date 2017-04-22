@@ -10,6 +10,7 @@ import { ProfilePostFocusComponent } from './profile-post-focus/profile-post-foc
   imports: [
     CommonModule
   ],
-  declarations: [ProfileComponent, ProfieTextPostComponent, ProfileMediaPostComponent, ProfileGridComponent, ProfilePostFocusComponent]
+  declarations: [ProfileComponent, ProfieTextPostComponent, ProfileMediaPostComponent, ProfileGridComponent, ProfilePostFocusComponent],
+  exports: [ProfileComponent, ProfieTextPostComponent, ProfileMediaPostComponent, ProfileGridComponent, ProfilePostFocusComponent]
 })
 export class ProfileModule { }

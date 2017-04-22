@@ -9,6 +9,8 @@ import { GroupModule } from 'app/group/group.module';
 import { ProfileModule } from 'app/profile/profile.module';
 import { SharedModule } from 'app/shared/shared.module';
 
+import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
 
 @NgModule({
@@ -19,11 +21,12 @@ import { AppComponent } from './app.component';
     BrowserModule,
     FormsModule,
     HttpModule,
+    SharedModule,
     LandingModule,
     FeedModule,
     GroupModule,
     ProfileModule,
-    SharedModule
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

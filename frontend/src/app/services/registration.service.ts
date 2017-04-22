@@ -6,17 +6,16 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
-import { Registration } from './objects/registration';
 
 
 @Injectable()
 export class RegistrationService {
 
-  private regUrl = 'vapeboyz.xyz/api/user';
+  private regUrl = 'http://vapeboyz.xyz/api/user';
 
   constructor(private http: Http) { }
 
-  register(user: Registration): Observable<Registration>{
+  register(user) {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 

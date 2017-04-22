@@ -9,6 +9,7 @@ import { FeedPostFocusComponent } from './feed-post-focus/feed-post-focus.compon
   imports: [
     CommonModule
   ],
-  declarations: [NewPostModalComponent, FeedPostComponent, FeedGridComponent, FeedPostFocusComponent]
+  declarations: [NewPostModalComponent, FeedPostComponent, FeedGridComponent, FeedPostFocusComponent],
+  exports: [NewPostModalComponent, FeedPostComponent, FeedGridComponent, FeedPostFocusComponent]
 })
 export class FeedModule { }
