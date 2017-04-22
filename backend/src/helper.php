@@ -24,14 +24,15 @@ function validated_user($jwt) {
 function upload_image($path, $name) {
   //Create a S3Client
   $aws = new Aws\Sdk();
+  $provider = CredentialProvider::ini();
+  // Cache the results in a memoize function to avoid loading and parsing
+  // the ini file on every API operation.
+  $provider = CredentialProvider::memoize($provider);
   $client = new S3Client([
     'region'      => 'us-east-2',
     'version'     => 'latest',
-    'credentials' => [
-        'key'    => AWS_KEY,
-        'secret' => AWS_SECRET,
-    ],
-]);
+    'credentials' => $provider
+  ]);
 
   $result = $client->putObject(array(
     'Bucket'     => 'images.soceanic.me',
