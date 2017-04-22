@@ -41,7 +41,7 @@ function upload_image($path, $name) {
 
   // We can poll the object until it is accessible
   $client->waitUntil('ObjectExists', array(
-    'Bucket' => $this->bucket,
+    'Bucket' => 'images.soceanic.me',
     'Key'    => $name . '.png',
   ));
 
