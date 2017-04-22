@@ -4,7 +4,6 @@ require '../vendor/autoload.php';
 
 use Aws\S3\S3Client;
 use Aws\Sdk;
-use Aws\Exception\AwsException;
 use \Firebase\JWT\JWT;
 
 function validated_user($jwt) {
@@ -23,8 +22,8 @@ function validated_user($jwt) {
 // Upload image to aws bucket
 function upload_image($path, $name) {
   //Create a S3Client
-  $aws = Aws::factory();
-  $client = $aws->get('S3');
+  $aws = new Aws\Sdk();
+  $client = $sdk->createS3();
 
   $result = $client->putObject(array(
     'Bucket'     => $bucket,
