@@ -99,6 +99,7 @@ $app->post('/user', function ($request, $response, $args) {
 
 // Validating a user's email
 $app->get('/token/{token}', function ($request, $response, $args) {
+    $pdo = $this->db;
     echo $args['token'];
     try {
       $decoded = JWT::decode($args['token'], $_SERVER['SECRET_KEY'], array('HS256'));
