@@ -102,7 +102,7 @@ $app->get('/token/{token}', function ($request, $response, $args) {
     echo $args['token'];
     try {
       $decoded = JWT::decode($args['token'], $_SERVER['SECRET_KEY'], array('HS256'));
-      echo ('/n/n')
+      echo ('/n/n');
       print_r($decoded);
     } catch (Exception $e) {
       echo "Exceptoidfsgjiu: " . $e->getMessage();
