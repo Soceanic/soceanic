@@ -10,7 +10,7 @@ if (PHP_SAPI == 'cli-server') {
 }
 
 require __DIR__ . '/../vendor/autoload.php';
-require __DIR__ . '/helper.php';
+require __DIR__ . '/../src/helper.php';
 
 session_start();
 
