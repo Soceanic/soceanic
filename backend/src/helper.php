@@ -6,7 +6,7 @@ use Aws\Credentials\CredentialProvider;
 use Aws\S3\S3Client;
 use Aws\Sdk;
 use \Firebase\JWT\JWT;
-use Mailgun\Mailgun;
+use \Mailgun\Mailgun;
 
 function validated_user($jwt) {
   $username = NULL;
@@ -34,7 +34,7 @@ function send_verification($username, $email, $first_name, $last_name) {
   $link = 'http://localhost:8080/token/' . $token;
 
   // Instantiate the client.
-  $mgClient = new Mailgun($_SERVER['MAILGUN_KEY'], new \Http\Adapter\Guzzle6\Client());
+  $mgClient = new \Mailgun\Mailgun($_SERVER['MAILGUN_KEY'], new \Http\Adapter\Guzzle6\Client());
   $domain = "soceanic.me";
 
   $html = "<html><p>Click the following link to verify your account:</p><br>
