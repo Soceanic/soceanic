@@ -1,6 +1,5 @@
 <?php
 // Routes for login requests
-require __DIR__ . '/helper.php';
 
 use \Firebase\JWT\JWT;
 

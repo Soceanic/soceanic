@@ -1,7 +1,6 @@
 <?php
 // Routes for the registration page requests
 require '../vendor/autoload.php';
-require __DIR__ . '/helper.php';
 
 use \Firebase\JWT\JWT;
 
