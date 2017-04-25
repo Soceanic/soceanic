@@ -35,6 +35,7 @@ function send_verification($username, $email, $first_name, $last_name) {
 
   // Instantiate the client.
   $mgClient = new \Mailgun\Mailgun($_SERVER['MAILGUN_KEY'], new \Http\Adapter\Guzzle6\Client());
+  echo $_SERVER['MAILGUN_KEY'];
   $domain = "soceanic.me";
 
   $html = "<html><p>Click the following link to verify your account:</p><br>
