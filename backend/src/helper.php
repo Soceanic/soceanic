@@ -28,14 +28,13 @@ function send_verification($username, $email, $first_name, $last_name) {
   "email" => $email,
   "exp" => time() + (60 * 60)     // jwt expires in one hour
   );
-  echo $_ENV['MAILGUN_KEY'];
 
   // encode the payload using our secretkey and return the token
-  $token = JWT::encode($payload, $_SERVER['SECRET_KEY']);
+  $token = JWT::encode($payload, $_ENV['SECRET_KEY']);
   $link = 'http://localhost:8080/token/' . $token;
 
   // Instantiate the client.
-  $mgClient = new \Mailgun\Mailgun($_SERVER['MAILGUN_KEY'], new \Http\Adapter\Guzzle6\Client());
+  $mgClient = new \Mailgun\Mailgun($_ENV['MAILGUN_KEY'], new \Http\Adapter\Guzzle6\Client());
   $domain = "soceanic.me";
 
   $html = "<html><p>Click the following link to verify your account:</p><br>
