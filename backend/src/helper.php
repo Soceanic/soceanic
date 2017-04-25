@@ -28,7 +28,7 @@ function send_verification($username, $email, $first_name, $last_name) {
   "email" => $email,
   "exp" => time() + (60 * 60)     // jwt expires in one hour
   );
-  echo $_SERVER['MAILGUN_KEY'];
+  echo $_ENV['MAILGUN_KEY'];
 
   // encode the payload using our secretkey and return the token
   $token = JWT::encode($payload, $_SERVER['SECRET_KEY']);
