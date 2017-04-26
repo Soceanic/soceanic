@@ -9,7 +9,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class AuthService {
 
-  private authUrl: string = 'http://vapeboyz.xyz/user/login';
+  private authUrl: string = 'http://vapeboyz.xyz/api/user/login';
 
   constructor(private http: Http) { }
 
@@ -37,7 +37,7 @@ export class AuthService {
     } else {
       errMsg = error.message ? error.message : error.toString();
     }
-    console.error(errMsg);
+    console.error('error', errMsg);
     return Observable.throw(errMsg);
   }
 

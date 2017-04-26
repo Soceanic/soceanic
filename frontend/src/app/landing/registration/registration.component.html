@@ -1,12 +1,23 @@
 <h1>Register</h1>
 <div class="registrationForm">
   <form [formGroup]="form" (ngSubmit)="register()">
-    <input type="text" class="form-control" placeholder="First Name" formControlName="first_name">
-    <input type="text" class="form-control" placeholder="Last Name" formControlName="last_name">
-    <input type="date" class="form-control" placeholder="Birthday MM/DD/YYYY" formControlName="birthday">
-    <input type="text" class="form-control" placeholder="Username" formControlName="username">
-    <input type="email" class="form-control" placeholder="Email" formControlName="email">
-    <input type="password" class="form-control" placeholder="Password" formControlName="password">
-    <button type="submit" class="btn btn-success">Register</button>
+    First Name<input type="text" class="form-control" placeholder="First Name" formControlName="first_name">
+    Last Name<input type="text" class="form-control" placeholder="Last Name" formControlName="last_name">
+    Birthday<input type="date" class="form-control" placeholder="Birthday MM/DD/YYYY" formControlName="birthday">
+    Username<input type="text" class="form-control" placeholder="Username" formControlName="username">
+    Email<input type="email" class="form-control" placeholder="Email" formControlName="email">
+    Password<input type="password" class="form-control" placeholder="Password" formControlName="password">
+    <button [ngClass]="disabled: valid()"] type="submit" class="btn btn-success">Register</button>
   </form>
 </div>
+
+<!-- Error Handling -->
+<div *ngIf="err">Error registering an account, please try again later</div><br>
+
+<!-- Form Validation -->
+<div *ngIf="form.get('first_name').hasError('required')">Please enter your first name</div>
+<div *ngIf="form.get('last_name').hasError('required')">Please enter your first name</div>
+<div *ngIf="form.get('birthday').hasError('required')">Please enter your first name</div>
+<div *ngIf="form.get('username').hasError('required')">Please enter your first name</div>
+<div *ngIf="form.get('email').hasError('required')">Please enter your first name</div>
+<div *ngIf="form.get('password').hasError('required')">Please enter your first name</div>

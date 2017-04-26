@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { RegistrationService } from 'app/services/registration.service';
 import { Registration } from 'app/services/objects/registration';
@@ -16,8 +17,15 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   private reg: Registration;
   form: FormGroup;
   submitted: boolean = false;
+  err = null;
 
-  constructor(private service: RegistrationService, private fb: FormBuilder) { }
+  constructor(private service: RegistrationService, private fb: FormBuilder, private router: Router) { }
+
+  valid(){
+    let isValid = true;
+    this.form.status == 'VALID' ? isValid = true : isValid = false;
+    return isValid;
+  }
 
   ngOnInit() {
     this.reg = new Registration();
@@ -126,10 +134,15 @@ register(){
   this.reg = this.form.value;
   this.service.register(this.reg)
               .subscribe(
-                user => console.log(user),
-                error => console.log(error)
+                user => {
+                  console.log(user);
+                  this.router.navigateByUrl('/login');
+                },
+                error => {
+                  console.log(error);
+                  this.err = error;
+                }
               );
-
   }
 
 }
