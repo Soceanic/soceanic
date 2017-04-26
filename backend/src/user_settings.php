@@ -48,8 +48,16 @@ $app->put('/user', function ($request, $response, $args) {
     }
     
     if (isset($password)) {
-      // Hash the password
-      $password = password_hash($plain_password, PASSWORD_DEFAULT);
+      $is_valid = password_verify($plain_password, $password);
+      if($is_valid) {
+        // Rehash the password if necessary
+        $needs_rehash = password_needs_rehash($password, PASSWORD_DEFAULT);
+        if($needs_rehash) {
+          $password = password_hash($plain_password, PASSWORD_DEFAULT);
+          $stmt = $pdo->prepare('UPDATE Users SET password=:password WHERE username=:username');
+          $stmt->bindParam("username", $username);
+          $stmt->bindParam("password", $password);
+          $stmt->execute();
     }
 
     return $response->withStatus(201);
