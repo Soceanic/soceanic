@@ -1,28 +1,32 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { RouterModule, Routes } from '@angular/router';
+
+import { LandingModule } from 'app/landing/landing.module';
+import { FeedModule } from 'app/feed/feed.module';
+import { GroupModule } from 'app/group/group.module';
+import { ProfileModule } from 'app/profile/profile.module';
+import { SharedModule } from 'app/shared/shared.module';
+
+import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
-import { LandingPageComponent } from './landing-page/landing-page.component';
-import { RegistrationComponent } from './registration/registration.component';
-
-const routes: Routes = [
-  { path: '', component: LandingPageComponent }
-]
 
 @NgModule({
   declarations: [
-    AppComponent,
-    LandingPageComponent,
-    RegistrationComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
-    ReactiveFormsModule,
+    FormsModule,
     HttpModule,
-    RouterModule.forRoot(routes)
+    SharedModule,
+    LandingModule,
+    FeedModule,
+    GroupModule,
+    ProfileModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

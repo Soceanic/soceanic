@@ -1,0 +1,9 @@
+<h1>Login</h1>
+<div class="loginForm">
+  <form [formGroup]="form" (ngSubmit)="login()">
+    <input type="text" class="form-control" placeholder="Username" formControlName="username">
+    <input type="password" class="form-control" placeholder="Password" formControlName="password">
+    <button type="submit" class="btn btn-success">Login</button>
+  </form>
+  <p *ngIf="err">Login failed</p>
+</div>

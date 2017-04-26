@@ -1,0 +1,12 @@
+<h1>Register</h1>
+<div class="registrationForm">
+  <form [formGroup]="form" (ngSubmit)="register()">
+    <input type="text" class="form-control" placeholder="First Name" formControlName="first_name">
+    <input type="text" class="form-control" placeholder="Last Name" formControlName="last_name">
+    <input type="date" class="form-control" placeholder="Birthday MM/DD/YYYY" formControlName="birthday">
+    <input type="text" class="form-control" placeholder="Username" formControlName="username">
+    <input type="email" class="form-control" placeholder="Email" formControlName="email">
+    <input type="password" class="form-control" placeholder="Password" formControlName="password">
+    <button type="submit" class="btn btn-success">Register</button>
+  </form>
+</div>
