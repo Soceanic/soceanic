@@ -78,7 +78,7 @@ $app->get('/token/{token}', function ($request, $response, $args) {
     if($username == NULL) {
       return $response->withAddedHeader('WWWW-Authenticate', 'None')->withStatus(401);
     }
-    $stmt = $pdo->prepare('UPDATE Users SET verified=1 WHERE username=:username');
+    $stmt = $pdo->prepare('UPDATE Users SET verified=1, last_updated=CURRENT_TIMESTAMP WHERE username=:username');
     $stmt->bindParam("username", $username);
     $stmt->execute();
 
