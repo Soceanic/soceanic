@@ -27,3 +27,8 @@ $container['db'] = function ($c) {
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     return $pdo;
 };
+
+$container['env'] = function ($c) {
+    $settings = $c->get('settings')['db'];
+    return $settings;
+};
