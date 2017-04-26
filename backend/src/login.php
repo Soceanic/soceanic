@@ -56,7 +56,7 @@ $app->post('/user/login', function ($request, $response, $args) {
 
           return $response->withJson($json, 200);
         } else {
-          return $response->withAddedHeader('WWWW-Authenticate', 'None')->withStatus(401);
+          return $response->withAddedHeader('WWWW-Authenticate', 'None')->withStatus(403);
         }
       } else {
           return $response->withAddedHeader('WWWW-Authenticate', 'None')->withStatus(401);
@@ -65,7 +65,7 @@ $app->post('/user/login', function ($request, $response, $args) {
       return $response->withStatus(404);
     }
 
-    return $response->withStatus(201);
+    // return $response->withStatus(201); 💩
 });
 
 // Temp to test image uploading
