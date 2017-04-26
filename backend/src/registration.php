@@ -76,7 +76,7 @@ $app->get('/token/{token}', function ($request, $response, $args) {
     $pdo = $this->db;
     echo $args['token'];
     try {
-      $decoded = JWT::decode($args['token'], $_SERVER['SECRET_KEY'], array('HS256'));
+      $decoded = JWT::decode($args['token'], $this->env['secret_key'], array('HS256'));
       echo ('/n/n');
       print_r($decoded);
     } catch (Exception $e) {

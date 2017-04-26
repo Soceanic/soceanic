@@ -22,5 +22,10 @@ return [
           'user' => 'root',
           'pass' => $_SERVER['DB_PASSWORD'],
         ],
+
+        'env' => [
+          'mailgun_key' => $_SERVER['MAILGUN_KEY'],
+          'secret_key' => $_SERVER['SECRET_KEY'],
+        ]
     ],
 ];
