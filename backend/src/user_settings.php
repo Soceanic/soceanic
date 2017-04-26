@@ -13,45 +13,44 @@ $app->put('/user', function ($request, $response, $args) {
     
     if (isset($first_name)) {
       $stmt = $pdo->prepare( 
-          "UPDATE Users SET first_name=$first_name WHERE username=$username"
+          "UPDATE Users SET first_name=:first_name WHERE username=:username"
           );
+      $stmt->bindParam("username", $username);
+      $stmt->bindParam("first_name", $first_name);
       $stmt->execute();
     }
     
     if (isset($last_name)) {
       $stmt = $pdo->prepare( 
-          "UPDATE Users SET last_name=$last_name WHERE username=$username"
+          "UPDATE Users SET last_name=:last_name WHERE username=:username"
           );
+      $stmt->bindParam("username", $username);
+      $stmt->bindParam("last_name", $last_name);
       $stmt->execute();  
     }
     
     if (isset($birthday)) {
-      
+      $stmt = $pdo->prepare( 
+          "UPDATE Users SET birthday=:birthday WHERE username=:username"
+          );
+      $stmt->bindParam("username", $username);
+      $stmt->bindParam("birthday", $birthday);
+      $stmt->execute();
     }
     
     if (isset($email)) {
-      
+      $stmt = $pdo->prepare( 
+          "UPDATE Users SET email=:email WHERE username=:username"
+          );
+      $stmt->bindParam("username", $username);
+      $stmt->bindParam("email", $email);
+      $stmt->execute();
     }
     
     if (isset($password)) {
       // Hash the password
       $password = password_hash($plain_password, PASSWORD_DEFAULT);
     }
-    
-    // Add the entry to the array once all the fields have been verified
-    $stmt = $pdo->prepare(
-      "INSERT INTO Users (username, first_name, last_name, email,
-       password, birthday, verified, last_login, date_joined, last_updated, profile_views)
-       VALUES (:username, :first_name, :last_name, :email, :password,
-         :birthday, 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 0)"
-      );
-    $stmt->bindParam("username", $username);
-    $stmt->bindParam("first_name", $first_name);
-    $stmt->bindParam("last_name", $last_name);
-    $stmt->bindParam("email", $email);
-    $stmt->bindParam("password", $password);
-    $stmt->bindParam("birthday", $birthday);
-    $stmt->execute();
 
     return $response->withStatus(201);
 });
