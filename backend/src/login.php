@@ -38,7 +38,7 @@ $app->post('/user/login', function ($request, $response, $args) {
           $stmt->bindParam("password", $password);
           $stmt->execute();
         }
-        
+
         if($verified == 1) {
           // Create the token as an array
           $payload = [
@@ -49,6 +49,11 @@ $app->post('/user/login', function ($request, $response, $args) {
           $json = json_encode(array(
                                 "jwt" => $token
                               ));
+
+          $stmt = $pdo->prepare('UPDATE Users SET last_login=CURRENT_TIMESTAMP WHERE username=:username');
+          $stmt->bindParam("username", $username);
+          $stmt->execute();
+
           return $response->withJson($json, 200);
         } else {
           return $response->withAddedHeader('WWWW-Authenticate', 'None')->withStatus(401);
