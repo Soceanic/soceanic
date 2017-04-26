@@ -8,8 +8,8 @@ $app->post('/user/login', function ($request, $response, $args) {
     $json = $request->getBody();
     $data = json_decode($json);
 
-    $username = $data->username;
-    $plain_password = $data->password;
+    $username = $data['username'];
+    $plain_password = $data->['password'];
 
     if( !isset($username) || !isset($plain_password) ||
         empty($username) || empty($plain_password)) {
