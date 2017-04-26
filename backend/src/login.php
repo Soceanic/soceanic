@@ -1,6 +1,5 @@
 <?php
 // Routes for login requests
-require __DIR__ . '/helper.php';
 
 use \Firebase\JWT\JWT;
 
@@ -38,14 +37,8 @@ $app->post('/user/login', function ($request, $response, $args) {
           $stmt->execute();
         }
 
-        // Create JWT Token
-        $tokenId    = base64_encode(mcrypt_create_iv(32));
-        $issuedAt   = time();
-
         // Create the token as an array
         $payload = [
-            'iat'  => $issuedAt,         // Issued at: time when the token was generated
-            'jti'  => $tokenId,          // Json Token Id: an unique identifier for the token
             'username' => $username,     // User name
         ];
 
