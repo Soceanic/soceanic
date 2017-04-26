@@ -12,7 +12,7 @@ function validated_user($jwt) {
   $username = NULL;
 
   try {
-    $decoded = JWT::decode($jwt, var_dump(getenv('SECRET_KEY')), array('HS256'));
+    $decoded = JWT::decode($jwt, $_SERVER['SECRET_KEY'], array('HS256'));
     $username = $decoded->username;
   } catch (Exception $e) {
     echo "Exception: " . $e->getMessage();
@@ -30,11 +30,11 @@ function send_verification($username, $email, $first_name, $last_name) {
   );
 
   // encode the payload using our secretkey and return the token
-  $token = JWT::encode($payload, $this->env['secret_key']);
+  $token = JWT::encode($payload, $_SERVER['SECRET_KEY']);
   $link = 'http://localhost:8080/token/' . $token;
 
   // Instantiate the client.
-  $mgClient = new \Mailgun\Mailgun($this->env['mailgun_key'], new \Http\Adapter\Guzzle6\Client());
+  $mgClient = new \Mailgun\Mailgun($_SERVER['MAILGUN_KEY'], new \Http\Adapter\Guzzle6\Client());
   $domain = "soceanic.me";
 
   $html = "<html><p>Click the following link to verify your account:</p><br>
