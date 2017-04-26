@@ -17,10 +17,12 @@ $app->post('/user/login', function ($request, $response, $args) {
     }
 
     // First, verify that the credentials are valid
-    $stmt = $pdo->prepare('SELECT password FROM Users WHERE username=:username');
+    $stmt = $pdo->prepare('SELECT password, verified FROM Users WHERE username=:username');
     $stmt->bindParam("username", $username);
     $stmt->execute();
-    $password = $stmt->fetchColumn();
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $password = $row['password'];
+    $verified = $row['verified'];
 
     if($password) {
       $is_valid = password_verify($plain_password, $password);
@@ -36,23 +38,20 @@ $app->post('/user/login', function ($request, $response, $args) {
           $stmt->execute();
         }
 
-        // Create JWT Token
-        $tokenId    = base64_encode(mcrypt_create_iv(32));
-        $issuedAt   = time();
+        if($verified == 1) {
+          // Create the token as an array
+          $payload = [
+              'username' => $username,     // User name
+          ];
 
-        // Create the token as an array
-        $payload = [
-            'iat'  => $issuedAt,         // Issued at: time when the token was generated
-            'jti'  => $tokenId,          // Json Token Id: an unique identifier for the token
-            'username' => $username,     // User name
-        ];
-
-        $token = JWT::encode($payload, $_SERVER['SECRET_KEY']);
-        $json = json_encode(array(
-                              "jwt" => $token
-                            ));
-        return $response->withJson($json, 200);
-
+          $token = JWT::encode($payload, $_SERVER['SECRET_KEY']);
+          $json = json_encode(array(
+                                "jwt" => $token
+                              ));
+          return $response->withJson($json, 200);
+        } else {
+          return $response->withAddedHeader('WWWW-Authenticate', 'None')->withStatus(401);
+        }
       } else {
           return $response->withAddedHeader('WWWW-Authenticate', 'None')->withStatus(401);
       }
