@@ -58,6 +58,8 @@ $app->put('/user', function ($request, $response, $args) {
           $stmt->bindParam("username", $username);
           $stmt->bindParam("password", $password);
           $stmt->execute();
+        }
+      }
     }
 
     return $response->withStatus(201);
