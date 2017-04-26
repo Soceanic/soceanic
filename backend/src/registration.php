@@ -74,18 +74,11 @@ $app->post('/user', function ($request, $response, $args) {
 // Validating a user's email
 $app->get('/token/{token}', function ($request, $response, $args) {
     $pdo = $this->db;
-    echo $args['token'];
-    try {
-      $decoded = JWT::decode($args['token'], $_SERVER['SECRET_KEY'], array('HS256'));
-      echo ('/n/n');
-      print_r($decoded);
-    } catch (Exception $e) {
-      echo "Exceptoidfsgjiu: " . $e->getMessage();
+    $username = validated_user($args['token']);
+    if($username == NULL) {
       return $response->withAddedHeader('WWWW-Authenticate', 'None')->withStatus(401);
     }
-
-    $username = $decoded->username;
-    $stmt = $pdo->prepare('UPDATE Users SET verified=1 WHERE username=:username');
+    $stmt = $pdo->prepare('UPDATE Users SET verified=1, last_updated=CURRENT_TIMESTAMP WHERE username=:username');
     $stmt->bindParam("username", $username);
     $stmt->execute();
 
