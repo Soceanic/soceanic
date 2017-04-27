@@ -1,5 +1,4 @@
 <?php
-require __DIR__ . '/helper.php';
 
 // Routes for posts
 // Creating a new post
