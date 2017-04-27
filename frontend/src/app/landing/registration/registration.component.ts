@@ -18,6 +18,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   form: FormGroup;
   submitted: boolean = false;
   err = null;
+  validform: boolean;
 
   constructor(private service: RegistrationService, private fb: FormBuilder, private router: Router) { }
 
@@ -92,6 +93,7 @@ onValueChanged(data?: any) {
       }
     }
   }
+  this.validform = this.valid();
 }
 
 formErrors = {

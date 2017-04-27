@@ -7,17 +7,46 @@
     Username<input type="text" class="form-control" placeholder="Username" formControlName="username">
     Email<input type="email" class="form-control" placeholder="Email" formControlName="email">
     Password<input type="password" class="form-control" placeholder="Password" formControlName="password">
-    <button [ngClass]="disabled: valid()"] type="submit" class="btn btn-success">Register</button>
+    <button type="submit" class="btn btn-success" [disabled]="!form.valid">Register</button>
   </form>
 </div>
 
 <!-- Error Handling -->
-<div *ngIf="err">Error registering an account, please try again later</div><br>
+<div class="error" *ngIf="err">Error registering an account, please try again later</div><br>
 
 <!-- Form Validation -->
-<div *ngIf="form.get('first_name').hasError('required')">Please enter your first name</div>
-<div *ngIf="form.get('last_name').hasError('required')">Please enter your first name</div>
-<div *ngIf="form.get('birthday').hasError('required')">Please enter your first name</div>
-<div *ngIf="form.get('username').hasError('required')">Please enter your first name</div>
-<div *ngIf="form.get('email').hasError('required')">Please enter your first name</div>
-<div *ngIf="form.get('password').hasError('required')">Please enter your first name</div>
+<div class="error" *ngIf="form.get('first_name').hasError('required')">
+  {{validationMessages.first_name.required}}
+</div>
+<div class="error" *ngIf="form.get('last_name').hasError('required')">
+  {{validationMessages.last_name.required}}
+</div>
+<div class="error" *ngIf="form.get('birthday').hasError('required')">
+  {{validationMessages.birthday.required}}
+</div>
+
+
+<div class="error" *ngIf="form.get('username').hasError('required')">
+  {{validationMessages.username.required}}
+</div>
+<div class="error" *ngIf="form.get('username').hasError('minLength')">
+  {{validationMessages.username.minLength}}
+</div>
+<div class="error" *ngIf="form.get('username').hasError('maxLength')">
+  {{validationMessages.username.maxLength}}
+</div>
+
+<div class="error" *ngIf="form.get('email').hasError('required')">
+  {{validationMessages.email.required}}
+</div>
+<div class="error" *ngIf="form.get('email').hasError('email')">
+  {{validationMessages.email.email}}
+</div>
+
+
+<div class="error" *ngIf="form.get('password').hasError('required')">
+  {{validationMessages.password.required}}
+</div>
+<div class="error" *ngIf="form.get('password').hasError('minLength')">
+  {{validationMessages.password.minLength}}
+</div>
