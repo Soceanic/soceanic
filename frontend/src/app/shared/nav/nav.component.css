@@ -1,30 +1,40 @@
-.sidebar-wrapper {
-	color: #c9c6c1;
-	opacity: 0.5;
+.nav {
+	background:#c9c6c1;
+	background-opacity: 0.5;
+	border-right:1px solid #e5e5e5;
+	position:absolute;
+	top:0;
+	bottom:0;
+	height:100%;
+	left:0;
+	width:60px;
+	overflow:hidden;
+	z-index:1000;
 }
 
-.sidebar-brand {
-
+.nav>ul {
+	margin:7px 0;
 }
 
-.selected {
-	width: 96px;
-	height: 48px;
-	background: #eee;
-	border-color: red;
-	border-style: solid;
-	border-width: 2px 2px 50px 2px;
-	border-radius: 100%;
-	position: relative;
+.nav li {
+	position:relative;
+	display:block;
+	width:250px;
 }
 
-.nonselected {
-	width: 96px;
-	height: 48px;
-	background: #eee;
-	border-color: red;
-	border-style: solid;
-	border-width: 2px 2px 50px 2px;
-	border-radius: 100%;
-	position: relative;
+.nav li>a {
+	position:relative;
+	display:table;
+	border-collapse:collapse;
+	border-spacing:0;
+	color:#999;
+}
+
+.nav:hover,nav.main-menu.expanded {
+	width:250px;
+	overflow:visible;
+}
+
+a:hover,a:focus {
+	text-decoration:none;
 }

@@ -3,15 +3,16 @@
 }
 
 .img-circle {
-	width: 500px;
-    height: 500px;  
+	width: 450px;
+    height: 450px;
+    -vendor-animation-duration: 5s;
+    -vendor-animation-delay: 2s;
+    -vendor-animation-iteration-count: infinite;
 }
 
 .landingpage {
 	text-align: center;
-	position: absolute;
+	margin-right: 60px;
 	left: 50%;
 	top: 50%; 
-	margin-left: -150px;
-	margin-top: -150px;
 }
