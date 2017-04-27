@@ -28,7 +28,7 @@ $app->get('/post/{post_id}', function ($request, $response, $args) {
     $stmt->execute();
 
     while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-
+        $data[] = json_encode($row);
     }
 
 
