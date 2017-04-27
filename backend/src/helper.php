@@ -31,7 +31,7 @@ function send_verification($username, $email, $first_name, $last_name) {
 
   // encode the payload using our secretkey and return the token
   $token = JWT::encode($payload, $_SERVER['SECRET_KEY']);
-  $link = 'http://localhost:8080/token/' . $token;
+  $link = 'http://soceanic.me/api/token/' . $token;
 
   // Instantiate the client.
   $mgClient = new \Mailgun\Mailgun($_SERVER['MAILGUN_KEY'], new \Http\Adapter\Guzzle6\Client());
