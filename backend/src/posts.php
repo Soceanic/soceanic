@@ -44,15 +44,15 @@ $app->get('/posts/{username}', function($request, $response, $args) {
     if ( !$isset($username) || !$isempty($username) ){
 	     return $response->withStatus(418);
     }
-    
+
     // Retrieve the user's posts
     $posts_sql = $pdo->prepare(
     	'SELECT * FROM Posts WHERE username=:username ORDER BY date_created DESC'
     );
     $posts_sql->bindParam("username", $username);
     $posts_sql->execute();
-    $data = []
-    while($post = $posts_sql->fetch(PDO::FETCH_ASSOC) {
+    $data = [];
+    while($post = $posts_sql->fetch(PDO::FETCH_ASSOC)) {
       $data[] = json_encode($post);
     }
 
