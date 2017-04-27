@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Login } from './objects/login';
 
 import { Observable } from 'rxjs/Observable';
 
@@ -10,24 +11,39 @@ import 'rxjs/add/operator/map';
 export class AuthService {
 
   private authUrl: string = 'http://vapeboyz.xyz/api/user/login';
+  token: string;
 
-  constructor(private http: Http) { }
+  constructor(private http: Http) {
+    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.token = currentUser && currentUser.jwt;
+  }
 
-  login(user){
+  login(user: Login): Observable<boolean>{
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
     return this.http.post(this.authUrl, JSON.stringify(user), options)
-                    .map(this.extractData)
+                    .map((res: Response) => {
+                      let token = res.json() && res.json().jwt;
+                      if(token) {
+                        this.token = token;
+                        localStorage.setItem('currentUser',
+                          JSON.stringify({ username: user.username, token: token }));
+                        return true;
+                      }else{
+                        return false;
+                      }
+                    }
+                  )
                     .catch(this.handleError);
   }
 
-  private extractData(res: Response) {
-    let body = res.json();
-    return body.data || { };
+  logout(): void{
+    this.token = null;
+    localStorage.removeItem('currentUser');
   }
 
-  private handleError (error: Response | any) {
+  private handleError (error: Response | any): Observable<any> {
     // In a real world app, you might use a remote logging infrastructure
     let errMsg: string;
     if (error instanceof Response) {
