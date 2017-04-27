@@ -2,8 +2,10 @@
 <div class="loginForm">
   <form [formGroup]="form" (ngSubmit)="login()">
     <input type="text" class="form-control" placeholder="Username" formControlName="username">
+    <div *ngIf="submitted && !form.get('username').valid" class="help-block">Username is required</div>
     <input type="password" class="form-control" placeholder="Password" formControlName="password">
+    <div *ngIf="submitted && !form.get('password').valid" class="help-block">Password is required</div>
     <button type="submit" class="btn btn-success">Login</button>
   </form>
-  <p *ngIf="err">Login failed</p>
+  <div *ngIf="err">{{err}}</div>
 </div>

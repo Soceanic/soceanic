@@ -11,6 +11,7 @@ import 'rxjs/add/operator/map';
 export class AuthService {
 
   private authUrl: string = 'http://vapeboyz.xyz/api/user/login';
+  // private authUrl = 'http://54.213.29.40/api/login';
   token: string;
 
   constructor(private http: Http) {
@@ -24,6 +25,7 @@ export class AuthService {
 
     return this.http.post(this.authUrl, JSON.stringify(user), options)
                     .map((res: Response) => {
+                      console.log(res.json().toString());
                       let token = res.json() && res.json().jwt;
                       if(token) {
                         this.token = token;
@@ -34,8 +36,7 @@ export class AuthService {
                         return false;
                       }
                     }
-                  )
-                    .catch(this.handleError);
+                  );
   }
 
   logout(): void{

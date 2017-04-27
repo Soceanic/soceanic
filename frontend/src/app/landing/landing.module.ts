@@ -14,8 +14,8 @@ import { LandingRoutingModule } from './landing-routing.module';
 
 import { Login } from 'app/services/objects/login';
 import { AuthService } from 'app/services/auth.service';
+import { AuthGuard } from 'app/guards/auth.guard';
 import { LoginComponent } from './login/login.component';
-
 
 @NgModule({
   imports: [
@@ -29,7 +29,8 @@ import { LoginComponent } from './login/login.component';
     Registration,
     RegistrationService,
     Login,
-    AuthService
+    AuthService,
+    AuthGuard
   ],
   exports: [RegistrationComponent, LandingComponent, LoginComponent]
 })

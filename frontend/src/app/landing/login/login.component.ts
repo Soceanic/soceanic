@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       'password': [this._login.password,
         [
           Validators.required,
-          Validators.minLength(8)
+          Validators.minLength(1)
         ]
     ]
     });
@@ -90,12 +90,16 @@ export class LoginComponent implements OnInit, OnDestroy {
     this._login = this.form.value;
     this.service.login(this._login)
                 .subscribe(
-                  user => console.log(user),
-                  error => this.err = error
+                  result => {
+                    console.log(result);
+                    if(result === true){
+                      this.router.navigateByUrl('/feed');
+                    }else{
+                      this.err = 'Login failed. Did you use the right username and password?';
+                    }
+                  }
                 );
-    if(!this.err){
-      this.router.navigateByUrl('/feed');
-    }
+
   }
 
 }
