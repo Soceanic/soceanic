@@ -68,7 +68,7 @@ $app->post('/user/login', function ($request, $response, $args) {
     return $response->withStatus(201);
 });
 
-// Temp to test image uploading
+// Image uploading
 $app->post('/upload', function ($request, $response, $args) {
     $pdo = $this->db;
     $json = $request->getBody();
