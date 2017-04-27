@@ -39,11 +39,10 @@ $app->post('/post', function ($request, $response, $args) {
     $stmt->bindParam("username", $username);
     $stmt->bindParam("title", $title);
     $stmt->bindParam("text", $text);
-    $stmt->bindParam("attachment", $attach);
     $stmt->execute();
 
     if (!isset($attach) || empty($attach)) {
-        return $response->withStatus(200);
+        return $response->withStatus(201);
     }
 
     // Find the post id
@@ -68,40 +67,17 @@ $app->post('/post', function ($request, $response, $args) {
     return $response->withStatus(201);
 });
 
-// Takes in a username and returns the user's posts
+// Returns all of the posts from all users
 $app->get('/posts', function($request, $response, $args) {
     $pdo = $this->db;
     $json = $request->getBody();
     $data = json_decode($json);
     $username = $data->username;
 
-    // Ensure the $username field is populated
-    if ( !$isset($username) || !$isempty($username) ){
-	     return $response->withStatus(418);
-    }
-    // Retrieve the user's posts
     $posts_sql = $pdo->prepare(
-    	'SELECT * FROM Posts WHERE username=:username ORDER BY date_created DESC'
+    	'SELECT * FROM Posts JOIN Relationships WHERE username_1=:username OR username_2=:username ORDER BY date_created DESC'
     );
-    $posts_sql->bindParam("username", $username);
-    $posts_sql->execute();
-    $data = []
-    while($post = $posts_sql->fetch(PDO::FETCH_ASSOC) {
-      $data[] = json_encode($post);
-    }
-
-    return $response->withJson(json_encode($data), 302);
-});
-
-// Returns all of the posts from all users
-$app->get('/posts', function($request, $response, $args) {
-    $pdo = $this->db;
-    $json = $request->getBody();
-    $data = json_decode($json);
-
-    $posts_sql = $pdo->prepare(
-    	'SELECT * FROM Posts ORDER BY date_created DESC'
-    );
+    $posts_spl->bindParam("username", $username);
     $posts_sql->execute();
     $data = []
     while($post = $posts_sql->fetch(PDO::FETCH_ASSOC) {
