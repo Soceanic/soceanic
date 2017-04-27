@@ -79,8 +79,8 @@ $app->get('/posts', function($request, $response, $args) {
     );
     $posts_spl->bindParam("username", $username);
     $posts_sql->execute();
-    $data = []
-    while($post = $posts_sql->fetch(PDO::FETCH_ASSOC) {
+    $data = [];
+    while($post = $posts_sql->fetch(PDO::FETCH_ASSOC)) {
       $data[] = json_encode($post);
     }
 
