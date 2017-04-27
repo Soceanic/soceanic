@@ -15,6 +15,7 @@ import { LandingRoutingModule } from './landing-routing.module';
 import { Login } from 'app/services/objects/login';
 import { AuthService } from 'app/services/auth.service';
 import { LoginComponent } from './login/login.component';
+import { EmailVerificationComponent } from './email-verification/email-verification.component';
 
 
 @NgModule({
@@ -24,14 +25,14 @@ import { LoginComponent } from './login/login.component';
     ReactiveFormsModule,
     LandingRoutingModule
   ],
-  declarations: [RegistrationComponent, LandingComponent, LoginComponent],
+  declarations: [RegistrationComponent, LandingComponent, LoginComponent, EmailVerificationComponent],
   providers: [
     Registration,
     RegistrationService,
     Login,
-    AuthService
+    AuthService,
   ],
-  exports: [RegistrationComponent, LandingComponent, LoginComponent]
+  exports: [RegistrationComponent, LandingComponent, LoginComponent, EmailVerificationComponent],
 })
 
 export class LandingModule { }
