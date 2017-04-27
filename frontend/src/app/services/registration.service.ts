@@ -15,17 +15,23 @@ export class RegistrationService {
   constructor(private http: Http) { }
 
   register(user) {
+    console.log('registering user');
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.post(this.regUrl, JSON.stringify(user), options)
+    return this.http.post(this.regUrl, user, options)
                     .map(this.extractData)
-                    .catch(this.handleError);
+                    .catch((err: any) => {
+                      console.log('fucking up at the post in reg service');
+                      return Observable.throw(err);
+                    }
+                  );
   }
 
   private extractData(res: Response) {
     let body = res.json();
-    return body.data || { };
+    console.log(body);
+    return body || { };
   }
 
   private handleError (error: Response | any) {
@@ -38,7 +44,8 @@ export class RegistrationService {
     } else {
       errMsg = error.message ? error.message : error.toString();
     }
-    console.error(errMsg);
+    console.error('fuck', error.status);
+    console.error('error in registration.service', errMsg);
     return Observable.throw(errMsg);
   }
 

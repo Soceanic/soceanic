@@ -14,7 +14,7 @@ import { Observable } from 'rxjs/Observable';
 })
 export class RegistrationComponent implements OnInit, OnDestroy {
 
-  private reg: Registration;
+  private reg;
   form: FormGroup;
   submitted: boolean = false;
   err = null;
@@ -133,7 +133,7 @@ validationMessages = {
 
 register(){
   this.submitted = true;
-  this.reg = this.form.value;
+  this.reg = this.form.getRawValue();
   this.service.register(this.reg)
               .subscribe(
                 user => {

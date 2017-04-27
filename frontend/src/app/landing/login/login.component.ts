@@ -87,12 +87,13 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   login() {
     this.submitted = true;
-    this._login = this.form.value;
+    this._login = this.form.getRawValue();
     this.service.login(this._login)
                 .subscribe(
                   result => {
                     console.log(result);
-                    if(result === true){
+                    if(result == true){
+                      console.log(localStorage.getItem('currentUser'));
                       this.router.navigateByUrl('/feed');
                     }else{
                       this.err = 'Login failed. Did you use the right username and password?';

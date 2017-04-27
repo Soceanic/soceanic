@@ -23,11 +23,11 @@ export class AuthService {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.post(this.authUrl, JSON.stringify(user), options)
+    return this.http.post(this.authUrl, user, options)
                     .map((res: Response) => {
-                      console.log(res.json().toString());
-                      let token = res.json() && res.json().jwt;
-                      if(token) {
+                      let token = JSON.parse(res.json())['jwt'];
+                      console.log('token: ', token);
+                      if(token != null) {
                         this.token = token;
                         localStorage.setItem('currentUser',
                           JSON.stringify({ username: user.username, token: token }));
