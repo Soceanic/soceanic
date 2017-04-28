@@ -20,7 +20,7 @@ $app->get('/post/{post_id}', function ($request, $response, $args) {
     }
 
     $post_id = $row['post_id'];
-    $data[] = json_encode($row);
+    $data[] = $row;
 
     // Get all comments for this post
     $stmt = $pdo->prepare('SELECT * FROM Comments WHERE post_id=:post_id');
@@ -28,11 +28,11 @@ $app->get('/post/{post_id}', function ($request, $response, $args) {
     $stmt->execute();
 
     while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        $data[] = json_encode($row);
+        $data[] = $row;
     }
 
 
-    return $response->withJson(json_encode($data), 302);
+    return $response->withJson($data, 302);
 });
 
 // Takes in a username and returns the user's posts

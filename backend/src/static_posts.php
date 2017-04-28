@@ -71,7 +71,7 @@ $app->post('/post', function ($request, $response, $args) {
 $app->post('/posts', function($request, $response, $args) {
     $pdo = $this->db;
     $json = $request->getBody();
-    $data = json_decode($json);
+    $data = $json;
     $username = $data->username;
 
     $posts_sql = $pdo->prepare(
@@ -81,8 +81,8 @@ $app->post('/posts', function($request, $response, $args) {
     $posts_sql->execute();
     $data = []
     while($post = $posts_sql->fetch(PDO::FETCH_ASSOC) {
-      $data[] = json_encode($post);
+      $data[] = $post;
     }
 
-    return $response->withJson(json_encode($data), 302);
+    return $response->withJson($data, 302);
 });
