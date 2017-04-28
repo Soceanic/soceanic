@@ -83,5 +83,5 @@ $app->get('/posts', function($request, $response, $args) {
       $data[] = json_encode($post);
     }
 
-    return $response->withJson(json_encode($data), 302);
+    return $response->withJson(json_encode($data, JSON_UNESCAPED_SLASHES), 302);
 });

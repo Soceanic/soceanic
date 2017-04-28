@@ -33,7 +33,7 @@ $app->get('/post/{post_id}', function ($request, $response, $args) {
     }
 
 
-    return $response->withJson(json_encode($data), 302);
+    return $response->withJson(json_encode($data, JSON_UNESCAPED_SLASHES), 302);
 });
 
 // Takes in a username and returns the user's posts
@@ -57,5 +57,5 @@ $app->get('/posts/{username}', function($request, $response, $args) {
       $data[] = json_encode($post);
     }
 
-    return $response->withJson(json_encode($data), 302);
+    return $response->withJson(json_encode($data, JSON_UNESCAPED_SLASHES), 302);
 });
