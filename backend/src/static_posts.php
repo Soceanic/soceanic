@@ -80,7 +80,7 @@ $app->get('/posts', function($request, $response, $args) {
     $posts_sql->execute();
     $data = [];
     while($post = $posts_sql->fetch(PDO::FETCH_ASSOC)) {
-      $data[] = json_encode($post);
+      $data[] = "post" => json_encode($post);
     }
 
     return $response->withJson(json_encode($data, JSON_UNESCAPED_SLASHES), 302);
