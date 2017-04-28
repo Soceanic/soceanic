@@ -68,14 +68,14 @@ $app->post('/post', function ($request, $response, $args) {
 });
 
 // Returns all of the posts from all users
-$app->get('/posts', function($request, $response, $args) {
+$app->post('/posts', function($request, $response, $args) {
     $pdo = $this->db;
     $json = $request->getBody();
     $data = json_decode($json);
     $username = $data->username;
 
     $posts_sql = $pdo->prepare(
-    	'SELECT * FROM Posts JOIN Relationships WHERE username_1=:username OR username_2=:username ORDER BY date_created DESC'
+    	'SELECT * FROM Posts JOIN Relationships WHERE username_1=:username OR username_2=:username AND status=1 ORDER BY date_created DESC'
     );
     $posts_spl->bindParam("username", $username);
     $posts_sql->execute();
