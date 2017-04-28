@@ -21,7 +21,7 @@ $app->get('/post/{post_id}', function ($request, $response, $args) {
     }
 
     $post_id = $row['post_id'];
-    $data[] = "post" => json_encode($row);
+    $data[] = ["post" => json_encode($row)];
 
     // Get all comments for this post
     $stmt = $pdo->prepare('SELECT * FROM Comments WHERE post_id=:post_id');
