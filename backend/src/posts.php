@@ -20,7 +20,7 @@ $app->get('/post/{post_id}', function ($request, $response, $args) {
     }
 
     $post_id = $row['post_id'];
-    $data[] = json_encode($row);
+    $data[] = $row;
 
     // Get all comments for this post
     $stmt = $pdo->prepare('SELECT * FROM Comments WHERE post_id=:post_id');
@@ -28,11 +28,11 @@ $app->get('/post/{post_id}', function ($request, $response, $args) {
     $stmt->execute();
 
     while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        $data[] = json_encode($row);
+        $data[] = $row;
     }
 
 
-    return $response->withJson(json_encode($data), 302);
+    return $response->withJson($data, 302);
 });
 
 // Takes in a username and returns the user's posts
@@ -44,7 +44,7 @@ $app->get('/posts/{username}', function($request, $response, $args) {
     if ( !$isset($username) || !$isempty($username) ){
 	     return $response->withStatus(418);
     }
-    
+
     // Retrieve the user's posts
     $posts_sql = $pdo->prepare(
     	'SELECT * FROM Posts WHERE username=:username ORDER BY date_created DESC'
@@ -53,8 +53,8 @@ $app->get('/posts/{username}', function($request, $response, $args) {
     $posts_sql->execute();
     $data = []
     while($post = $posts_sql->fetch(PDO::FETCH_ASSOC) {
-      $data[] = json_encode($post);
+      $data[] = $post;
     }
 
-    return $response->withJson(json_encode($data), 302);
+    return $response->withJson($data, 302);
 });
