@@ -2,6 +2,7 @@
 
 // Routes for posts
 $app->get('/post/{post_id}', function ($request, $response, $args) {
+    $pdo = $this->db;
     $id = $request->getAttribute('post_id');
 
     if (!isset($id) || empty($id)) {
@@ -41,7 +42,7 @@ $app->get('/posts/{username}', function($request, $response, $args) {
     $username = $args['username'];
 
     // Ensure the $username field is populated
-    if ( !$isset($username) || !$isempty($username) ){
+    if ( !isset($username) || empty($username) ){
 	     return $response->withStatus(418);
     }
 
