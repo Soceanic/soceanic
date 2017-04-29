@@ -18,7 +18,7 @@ $app->post('/friend', function ($request, $response, $args) {
 
     $stmt = $pdo->prepare(
       "SELECT * FROM Relationships WHERE username_1 IN (:username1, :username2)
-       AND username2 IN (:username1, :username2)"
+       AND username_2 IN (:username1, :username2)"
       );
 
     $stmt->bindParam("username1", $username1);
