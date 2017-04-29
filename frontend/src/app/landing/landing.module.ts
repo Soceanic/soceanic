@@ -8,6 +8,7 @@ import { Registration } from 'app/services/objects/registration';
 import { RegistrationService } from 'app/services/registration.service';
 import { RegistrationComponent } from 'app/landing/registration/registration.component';
 import { LandingComponent } from 'app/landing/landing/landing.component';
+import { MembersComponent } from 'app/landing/members/members.component';
 import { ModalComponent } from 'app/shared/modal/modal.component';
 
 import { LandingRoutingModule } from './landing-routing.module';
@@ -25,14 +26,14 @@ import { EmailVerificationComponent } from './email-verification/email-verificat
     ReactiveFormsModule,
     LandingRoutingModule
   ],
-  declarations: [RegistrationComponent, LandingComponent, LoginComponent, EmailVerificationComponent],
+  declarations: [RegistrationComponent, LandingComponent, MembersComponent, LoginComponent, EmailVerificationComponent],
   providers: [
     Registration,
     RegistrationService,
     Login,
     AuthService,
   ],
-  exports: [RegistrationComponent, LandingComponent, LoginComponent, EmailVerificationComponent],
+  exports: [RegistrationComponent, LandingComponent, MembersComponent, LoginComponent, EmailVerificationComponent],
 })
 
 export class LandingModule { }

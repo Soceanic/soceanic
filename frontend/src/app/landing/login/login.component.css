@@ -1,11 +1,25 @@
-.text {
-	moz-border-radius: 10px;
+.loginpage {
+	padding: 50px;
+	margin-left: 60px;
 }
 
-.password {
-	moz-border-radius: 10px;
+.form {
+	text-align: center;
 }
 
-.submit {
-	moz-border-radius: 10px;
+button {
+	margin: 5px;
+	width: 450px;
+    height: 50px;
+	border: none;
+	color:#ffffff;
+	border-radius: 50px;
+	background-color:#042335;
+	background-image: url(/assets/black-linen.png);
+}
+
+button:hover {
+	border: none;
+	background-image: none;
+	background-color: #475963;
 }

@@ -14,12 +14,16 @@ export class NavComponent implements OnInit {
       'name': 'Home'
     },
     {
+      'url': '/login',
+      'name': 'Login'
+    },
+    {
       'url': '/register',
       'name': 'Registration'
     },
     {
-      'url': '/login',
-      'name': 'Login'
+      'url': '/members',
+      'name': 'Soceanic Members'
     }
   ];
 

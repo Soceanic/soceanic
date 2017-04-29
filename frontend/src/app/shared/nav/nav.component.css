@@ -1,15 +1,11 @@
 .nav {
-	background:#c9c6c1;
-	background-opacity: 0.5;
-	border-right:1px solid #e5e5e5;
-	position:absolute;
-	top:0;
-	bottom:0;
-	height:100%;
-	left:0;
 	width:60px;
-	overflow:hidden;
+	height: 100%;
 	z-index:1000;
+	position:fixed;
+	overflow:hidden;
+	background-color:#042335;
+	background-image: url(/assets/black-linen.png);
 }
 
 .nav>ul {
@@ -17,21 +13,27 @@
 }
 
 .nav li {
-	position:relative;
-	display:block;
-	width:250px;
+	position:center;
+	width:200px;
 }
 
 .nav li>a {
-	position:relative;
-	display:table;
-	border-collapse:collapse;
+	color:#ffffff;
+	padding: 70px 0;
 	border-spacing:0;
-	color:#999;
+	position:relative;
+	display:list-item;
+	text-align: center;
+	border-collapse:collapse;
 }
 
+.sidebar-brand:hover, .active {
+	background-color: #475963;
+}
+
+
 .nav:hover,nav.main-menu.expanded {
-	width:250px;
+	width:200px;
 	overflow:visible;
 }
 

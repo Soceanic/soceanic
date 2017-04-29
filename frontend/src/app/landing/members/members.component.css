@@ -1,0 +1,17 @@
+.teampage {
+	padding: 50px;
+	margin-left: 60px;
+}
+
+.title {
+	text-align: center;
+}
+
+.img-circle {
+	width: 200px;
+    height: 200px;
+}
+
+.members {
+	display: flex-block;
+}
