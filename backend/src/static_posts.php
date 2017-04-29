@@ -80,7 +80,7 @@ $app->post('/posts', function($request, $response, $args) {
     $posts_spl->bindParam("username", $username);
     $posts_sql->execute();
     $data = [];
-    while($post = $posts_sql->fetch(PDO::FETCH_ASSOC) {
+    while($post = $posts_sql->fetch(PDO::FETCH_ASSOC)) {
       $data[] = $post;
     }
 
