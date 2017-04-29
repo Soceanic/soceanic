@@ -1,6 +1,10 @@
 export class Post{
   post_id: number;
   username: string;
-  group_name: string;
-  priority: number;
+  title: string;
+  text: string;
+  attachment: string | null;
+  likes: number;
+  date_created: string;
+  last_updated: string;
 }

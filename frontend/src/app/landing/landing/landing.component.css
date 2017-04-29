@@ -1,3 +1,37 @@
-.jumbotron{
-  padding-right: 50px;
+.landingpage {
+	padding: 50px;
+	margin-left: 60px;
+	background-image: url(/assets/fabric-plaid.png), url(/assets/background.jpg) !important;
 }
+
+.main, .buttons {
+	text-align: center;
+}
+
+.img-circle {
+	width: 450px;
+    height: 450px;
+    -webkit-animation-duration: 2s;
+}
+
+.signin, .signup {
+	margin: 5px;
+	width: 450px;
+    height: 50px;
+    border: none;
+	color:#ffffff;
+	border-radius: 50px;
+	background-color:#042335;
+	background-image: url(/assets/black-linen.png);
+}
+
+.signin:hover, .signup:hover {
+	background-image: none;
+	background-color: #475963;
+}
+
+/*#yourElement {
+  -vendor-animation-delay: 2s;
+  -vendor-animation-duration: 3s;
+  -vendor-animation-iteration-count: infinite;
+}*/

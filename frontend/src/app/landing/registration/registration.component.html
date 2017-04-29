@@ -12,7 +12,7 @@
 </div>
 
 <!-- Error Handling -->
-<div class="error" *ngIf="err">Error registering an account, please try again later</div><br>
+<div class="error" *ngIf="err">{{err}}</div><br>
 
 <!-- Form Validation -->
 <div class="error" *ngIf="form.get('first_name').hasError('required')">

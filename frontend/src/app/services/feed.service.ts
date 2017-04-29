@@ -13,21 +13,21 @@ export class FeedService {
   constructor(private http: Http) { }
 
   private postUrl: string = 'http://vapeboyz.xyz/api/posts';
-  private currUser = JSON.parse(localStorage.getItem('currentUser'))['currentUser'];
+  private currUser = JSON.parse(localStorage.getItem('currentUser'))['username'];
 
-  getFeed(username?){
+  getFeed(username?): Observable<[Post]>{
     if(username === undefined) var username = this.currUser;
     return this.http.get(`${this.postUrl}/${username}`)
                     .map(
                       (res: Response) => {
-                        console.log(res.json());
-                        return res.json();
+                        let body = res.json();
+                        return body;
                       }
                     )
                     .catch(
                       (err: any) => {
-                        console.log('error getting posts in feed service');
-                        return Observable.throw(err);
+                        console.log('error getting posts in feed service', err);
+                        return Observable.throw(JSON.parse(err._body));
                       }
                     )
   }

@@ -1,3 +1,5 @@
-<p>
-  feed-grid works!
-</p>
+<div class="container">
+  <div *ngFor="let post of feed">
+    <app-feed-post [post]="post"></app-feed-post>
+  </div>
+</div>

@@ -11,7 +11,7 @@ import 'rxjs/add/operator/map';
 export class AuthService {
 
   private authUrl: string = 'http://vapeboyz.xyz/api/user/login';
-  // private authUrl = 'http://54.213.29.40/api/login';
+
   token: string;
 
   constructor(private http: Http) {

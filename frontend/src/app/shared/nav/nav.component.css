@@ -1,0 +1,42 @@
+nav {
+	width:60px;
+	height: 100%;
+	z-index:1000;
+	position:fixed;
+	overflow:hidden;
+	background-color:#042335;
+	background-image: url(/assets/black-linen.png);
+}
+
+.nav>ul {
+	margin:7px 0;
+}
+
+.nav li {
+	position:center;
+	width:200px;
+}
+
+.nav li>a {
+	color:#ffffff;
+	padding: 70px 0;
+	border-spacing:0;
+	position:relative;
+	display:list-item;
+	text-align: center;
+	border-collapse:collapse;
+}
+
+.sidebar-brand:hover, .active {
+	background-color: #475963;
+}
+
+
+.nav:hover,nav.main-menu.expanded {
+	width:200px;
+	overflow:visible;
+}
+
+a:hover,a:focus {
+	text-decoration:none;
+}
