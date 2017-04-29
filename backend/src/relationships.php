@@ -152,8 +152,9 @@ $app->get('/requests', function ($request, $response, $args) {
 
     $stmt->bindParam("username", $username);
     $stmt->execute();
+    $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    return $response->withStatus(200);
+    return $response->withJson($data, 200);
 });
 
 // Get status of a relationship
@@ -162,4 +163,29 @@ $app->get('/status', function ($request, $response, $args) {
     $json = $request->getBody();
     $data = json_decode($json);
 
+    $username1 = $data->username1;
+    $username2 = $data->username2;
+
+    // Check if json is valid
+    if( !isset($username1) || !isset($username2) ||
+        empty($username1) || empty($username2)) {
+
+      return $response->withStatus(418);
+    }
+
+    $stmt = $pdo->prepare(
+      "SELECT status FROM Relationships WHERE username_1=:username1
+       AND username_2=:username2"
+      );
+
+    $stmt->bindParam("username1", $username1);
+    $stmt->bindParam("username2", $username2);
+    $stmt->execute();
+    $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if(!$data) {
+      $data = array('status' => 5);
+    }
+
+    return $response->withJson($data, 200);
 });
