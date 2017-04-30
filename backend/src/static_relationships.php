@@ -65,7 +65,7 @@ $app->put('/respond', function ($request, $response, $args) {
 
     $stmt = $pdo->prepare(
       "SELECT * FROM Relationships WHERE username_1=:username2
-       AND username_2=:username1)"
+       AND username_2=:username1"
       );
 
     $stmt->bindParam("username1", $username1);
