@@ -31,3 +31,26 @@ $app->get('/status/{username1}/{username2}', function ($request, $response, $arg
 
     return $response->withJson($data, 200);
 });
+
+// Getting a list of the user's incoming requests
+$app->get('/requests/{username}', function ($request, $response, $args) {
+    $pdo = $this->db;
+    $json = $request->getBody();
+    $data = json_decode($json);
+
+    // Check if json is valid
+    if( !isset($args['username']) || empty($args['username'])) {
+      return $response->withStatus(418);
+    }
+
+    $username = $args['username'];
+
+    $stmt = $pdo->prepare('SELECT username_1, status, date_sent FROM Relationships
+      WHERE username_2=:username');
+
+    $stmt->bindParam("username", $username);
+    $stmt->execute();
+    $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    return $response->withJson($data, 200);
+});
