@@ -47,70 +47,43 @@ $app->post('/friend', function ($request, $response, $args) {
 
 // Changing the status of a relationship
 // Add friend
-$app->put('/friend', function ($request, $response, $args) {
+$app->put('/respond', function ($request, $response, $args) {
     $pdo = $this->db;
     $json = $request->getBody();
     $data = json_decode($json);
 
-    $username = $data->username;
+    $username1 = $data->username1;
+    $username2 = $data->username2;
+    $status = $data->status;
 
     // Check if json is valid
-    if( !isset($username) || !isset($username)) {
+    if( !isset($username1) || !isset($username2) ||
+        empty($username1) || empty($username2)) {
 
       return $response->withStatus(418);
     }
 
-    $stmt = $pdo->prepare('UPDATE Relationships SET status=1, last_updated=CURRENT_TIMESTAMP
-      WHERE username_2=:username');
+    $stmt = $pdo->prepare(
+      "SELECT * FROM Relationships WHERE username_1=:username1
+       AND username_2=:username2)"
+      );
 
-    $stmt->bindParam("username", $username);
+    $stmt->bindParam("username1", $username1);
+    $stmt->bindParam("username2", $username2);
     $stmt->execute();
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    return $response->withStatus(200);
-
-});
-
-// Ignore
-$app->put('/ignore', function ($request, $response, $args) {
-    $pdo = $this->db;
-    $json = $request->getBody();
-    $data = json_decode($json);
-
-    $username = $data->username;
-
-    // Check if json is valid
-    if( !isset($username) || !isset($username)) {
-
-      return $response->withStatus(418);
+    if(!$row)
+    {
+      return $response->withStatus(404);
     }
 
-    $stmt = $pdo->prepare('UPDATE Relationships SET status=2, last_updated=CURRENT_TIMESTAMP
-      WHERE username_2=:username');
+    $stmt = $pdo->prepare('UPDATE Relationships SET status=:status, last_updated=CURRENT_TIMESTAMP
+      WHERE username_1=:username1 AND username_2=:username2');
 
-    $stmt->bindParam("username", $username);
-    $stmt->execute();
-
-    return $response->withStatus(200);
-});
-
-// Block a friend
-$app->put('/block', function ($request, $response, $args) {
-    $pdo = $this->db;
-    $json = $request->getBody();
-    $data = json_decode($json);
-
-    $username = $data->username;
-
-    // Check if json is valid
-    if( !isset($username) || !isset($username)) {
-
-      return $response->withStatus(418);
-    }
-
-    $stmt = $pdo->prepare('UPDATE Relationships SET status=3, last_updated=CURRENT_TIMESTAMP
-      WHERE username_2=:username');
-
-    $stmt->bindParam("username", $username);
+    $stmt->bindParam("username1", $username1);
+    $stmt->bindParam("username2", $username2);
+    $stmt->bindParam("status", $status);
     $stmt->execute();
 
     return $response->withStatus(200);
