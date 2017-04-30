@@ -146,26 +146,3 @@ $app->post('/block', function ($request, $response, $args) {
 
     return $response->withStatus(201);
 });
-
-// Getting a list of the user's incoming requests
-$app->get('/requests', function ($request, $response, $args) {
-    $pdo = $this->db;
-    $json = $request->getBody();
-    $data = json_decode($json);
-
-    $username = $data->username;
-
-    // Check if json is valid
-    if( !isset($username) || !isset($username)) {
-      return $response->withStatus(418);
-    }
-
-    $stmt = $pdo->prepare('SELECT username_1, status, date_sent FROM Relationships
-      WHERE username_2=:username');
-
-    $stmt->bindParam("username", $username);
-    $stmt->execute();
-    $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    return $response->withJson($data, 200);
-});
