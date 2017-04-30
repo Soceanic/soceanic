@@ -64,8 +64,8 @@ $app->put('/respond', function ($request, $response, $args) {
     }
 
     $stmt = $pdo->prepare(
-      "SELECT * FROM Relationships WHERE username_1=:username1
-       AND username_2=:username2)"
+      "SELECT * FROM Relationships WHERE username_1=:username2
+       AND username_2=:username1)"
       );
 
     $stmt->bindParam("username1", $username1);
@@ -79,7 +79,7 @@ $app->put('/respond', function ($request, $response, $args) {
     }
 
     $stmt = $pdo->prepare('UPDATE Relationships SET status=:status, last_updated=CURRENT_TIMESTAMP
-      WHERE username_1=:username1 AND username_2=:username2');
+      WHERE username_1=:username2 AND username_2=:username1');
 
     $stmt->bindParam("username1", $username1);
     $stmt->bindParam("username2", $username2);
