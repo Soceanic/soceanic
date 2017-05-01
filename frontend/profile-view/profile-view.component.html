@@ -1,15 +1,17 @@
-<div align="right">
-	<a [routerLink]="'/picture/' + account.userId">
-		{{ picture }}
-	</a>
-</div>
+<div>
+	<div align="media-left">
+		<a [routerLink]="'/picture/' + account.userId">
+			{{ picture }}
+		</a>
+	</div>
 
-<div align="left">
-	<a [routerLink]="'/user/' + account.userId">
-		{{ user }}
-	</a>
+	<div align="media-right">
+		<a [routerLink]="'/user/' + account.userId">
+			{{ user }}
+		</a>
 
-	<a [routerLink]="'/bio/' + account.userId">
-		{{ bio }}
-	</a>
+		<a [routerLink]="'/bio/' + account.userId">
+			{{ bio }}
+		</a>
+	</div>
 </div>

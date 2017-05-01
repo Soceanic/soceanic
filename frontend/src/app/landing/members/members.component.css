@@ -1,15 +1,15 @@
-.teampage {
-	padding: 50px;
-	margin-left: 60px;
-}
-
 .title {
 	text-align: center;
 }
 
+.member2, .member4 {
+	text-align: right;
+}
+
 .img-circle {
-	width: 200px;
-    height: 200px;
+	margin: 50px;
+	width: 250px;
+    height: 250px;
 }
 
 .members {

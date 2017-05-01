@@ -16,7 +16,7 @@ import { LandingRoutingModule } from './landing-routing.module';
 import { Login } from 'app/services/objects/login';
 import { AuthService } from 'app/services/auth.service';
 import { LoginComponent } from './login/login.component';
-import { EmailVerificationComponent } from './email-verification/email-verification.component';
+import { EmailVerificationComponent } from 'app/landing/email-verification/email-verification.component';
 
 
 @NgModule({
