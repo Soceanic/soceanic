@@ -65,3 +65,67 @@ $app->post('/post', function ($request, $response, $args) {
 
     return $response->withStatus(201);
 });
+
+
+
+// Upvote a post
+$app->put('/post/upvote', function($request, $response, $args) {
+    $pdo = $this->db;
+    $json = $request->getBody();
+    $data = json_decode($json);
+
+    $post_id = $data->post_id;
+
+    if ( !isset($post_id) || empty($post_id) ) {
+      return $response->withStatus(418);
+    }
+
+    $stmt = $pdo-prepare('SELECT likes FROM Posts WHERE post_id=:post_id');
+    $stmt->bindParam("post_id", $post_id);
+    $stmt->execute();
+    $likes = $stmt->fetchColumn();
+
+    if(!$likes) {
+      return $response->withStatus(404);
+    }
+
+    $likes = $likes + 1;
+
+    $stmt = $pdo->prepare('UPDATE Posts SET likes=:likes WHERE post_id=:post_id');
+    $stmt->bindParam("likes", $likes);
+    $stmt->bindParam("post_id", $post_id);
+    $stmt->execute();
+
+    return $response->withStatus(200);
+});
+
+// Downvote a post
+$app->put('/post/downvote', function($request, $response, $args) {
+  $pdo = $this->db;
+  $json = $request->getBody();
+  $data = json_decode($json);
+
+  $post_id = $data->post_id;
+
+  if ( !isset($post_id) || empty($post_id) ) {
+    return $response->withStatus(418);
+  }
+
+  $stmt = $pdo-prepare('SELECT likes FROM Posts WHERE post_id=:post_id');
+  $stmt->bindParam("post_id", $post_id);
+  $stmt->execute();
+  $likes = $stmt->fetchColumn();
+
+  if(!$likes) {
+    return $response->withStatus(404);
+  }
+
+  $likes = $likes - 1;
+
+  $stmt = $pdo->prepare('UPDATE Posts SET likes=:likes WHERE post_id=:post_id');
+  $stmt->bindParam("likes", $likes);
+  $stmt->bindParam("post_id", $post_id);
+  $stmt->execute();
+
+  return $response->withStatus(200);
+});

@@ -28,10 +28,12 @@ require __DIR__ . '/../src/middleware.php';
 require __DIR__ . '/../src/login.php';
 require __DIR__ . '/../src/static_posts.php';
 require __DIR__ . '/../src/static_relationships.php';
+require __DIR__ . '/../src/static_groups.php';
 require __DIR__ . '/../src/static_box.php';
 // Put all static routes above this line cause fuck php and slim in particular
 require __DIR__ . '/../src/registration.php';
 require __DIR__ . '/../src/box.php';
+require __DIR__ . '/../src/groups.php';
 require __DIR__ . '/../src/posts.php';
 require __DIR__ . '/../src/relationships.php';
 require __DIR__ . '/../src/routes.php';
