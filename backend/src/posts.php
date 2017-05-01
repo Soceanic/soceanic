@@ -60,8 +60,6 @@ $app->get('/posts/{username}', function($request, $response, $args) {
     return $response->withJson($data, 302);
 });
 
-// Returns the user's feed
-
 // Returns all of the posts from all users
 $app->get('/feed/{username}', function($request, $response, $args) {
     $pdo = $this->db;

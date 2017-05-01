@@ -42,7 +42,8 @@ $app->get('/requests/{username}', function ($request, $response, $args) {
     $username = $args['username'];
 
     $stmt = $pdo->prepare('SELECT username_1, status, date_sent FROM Relationships
-      WHERE username_2=:username');
+      WHERE username_2=:username
+      AND status=0');
 
     $stmt->bindParam("username", $username);
     $stmt->execute();
