@@ -35,6 +35,7 @@ require __DIR__ . '/../src/box.php';
 require __DIR__ . '/../src/posts.php';
 require __DIR__ . '/../src/relationships.php';
 require __DIR__ . '/../src/routes.php';
+require __DIR__ . '/../src/profilepage.php';
 
 // Run app
 $app->run();
