@@ -192,7 +192,7 @@ $app->put('/post/downvote', function($request, $response, $args) {
       $code = 201;
     }
   } else {
-      $added = 1;
+      $added = -1;
       $stmt = $pdo->prepare('INSERT INTO Votes (post_id, username, downvote, date_created, last_updated)
                              VALUES (:post_id, :username, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)');
       $stmt->bindParam("post_id", $post_id);
