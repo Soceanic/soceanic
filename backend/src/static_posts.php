@@ -74,6 +74,7 @@ $app->put('/post/upvote', function($request, $response, $args) {
     $json = $request->getBody();
     $data = json_decode($json);
 
+    $username = $data->username;
     $post_id = $data->post_id;
 
     if ( !isset($post_id) || empty($post_id) ) {
@@ -89,14 +90,54 @@ $app->put('/post/upvote', function($request, $response, $args) {
       return $response->withStatus(404);
     }
 
-    $likes = $likes + 1;
+    $added = 0;
+    $code = 200;
+
+    $stmt = $pdo->prepare('SELECT upvote, downvote FROM Votes WHERE post_id=:post_id AND username=:username');
+    $stmt->bindParam("username", $username);
+    $stmt->bindParam("post_id", $post_id);
+    $stmt->execute();
+    $row = $stmt->fetch(FETCH::ASSOC);
+
+    if($row) {
+      if($row['upvote'] == 1) {
+        $added = -1;
+
+        $stmt = $pdo->prepare('UPDATE Votes SET upvote=0, last_updated=CURRENT_TIMESTAMP WHERE username=:username AND post_id=:post_id');
+        $stmt->bindParam("username", $username);
+        $stmt->bindParam("post_id", $post_id);
+        $stmt->execute();
+
+        $code = 302;
+      } elseif ($row['downvote'] == 1 ) {
+        $added = 2;
+
+        $stmt = $pdo->prepare('UPDATE Votes SET upvote=1, downvote=0, last_updated=CURRENT_TIMESTAMP WHERE username=:username AND post_id=:post_id');
+        $stmt->bindParam("username", $username);
+        $stmt->bindParam("post_id", $post_id);
+        $stmt->execute();
+
+        $code = 201;
+      }
+    } else {
+        $added = 1;
+        $stmt = $pdo->prepare('INSERT INTO Votes (post_id, username, upvote, date_created, last_updated)
+                               VALUES (:post_id, :username, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)');
+        $stmt->bindParam("post_id", $post_id);
+        $stmt->bindParam("username", $username);
+        $stmt->execute();
+
+        $code = 201;
+    }
+
+    $likes = $likes + $added;
 
     $stmt = $pdo->prepare('UPDATE Posts SET likes=:likes WHERE post_id=:post_id');
     $stmt->bindParam("likes", $likes);
     $stmt->bindParam("post_id", $post_id);
     $stmt->execute();
 
-    return $response->withStatus(200);
+    return $response->withStatus($code);
 });
 
 // Downvote a post
@@ -105,6 +146,7 @@ $app->put('/post/downvote', function($request, $response, $args) {
   $json = $request->getBody();
   $data = json_decode($json);
 
+  $username = $data->username;
   $post_id = $data->post_id;
 
   if ( !isset($post_id) || empty($post_id) ) {
@@ -120,12 +162,52 @@ $app->put('/post/downvote', function($request, $response, $args) {
     return $response->withStatus(404);
   }
 
-  $likes = $likes - 1;
+  $added = 0;
+  $code = 200;
+
+  $stmt = $pdo->prepare('SELECT upvote, downvote FROM Votes WHERE post_id=:post_id AND username=:username');
+  $stmt->bindParam("username", $username);
+  $stmt->bindParam("post_id", $post_id);
+  $stmt->execute();
+  $row = $stmt->fetch(FETCH::ASSOC);
+
+  if($row) {
+    if($row['upvote'] == 1) {
+      $added = -2;
+
+      $stmt = $pdo->prepare('UPDATE Votes SET upvote=0, downvote=1 last_updated=CURRENT_TIMESTAMP WHERE username=:username AND post_id=:post_id');
+      $stmt->bindParam("username", $username);
+      $stmt->bindParam("post_id", $post_id);
+      $stmt->execute();
+
+      $code = 302;
+    } elseif ($row['downvote'] == 1 ) {
+      $added = 1;
+
+      $stmt = $pdo->prepare('UPDATE Votes SET downvote=0, last_updated=CURRENT_TIMESTAMP WHERE username=:username AND post_id=:post_id');
+      $stmt->bindParam("username", $username);
+      $stmt->bindParam("post_id", $post_id);
+      $stmt->execute();
+
+      $code = 201;
+    }
+  } else {
+      $added = 1;
+      $stmt = $pdo->prepare('INSERT INTO Votes (post_id, username, downvote, date_created, last_updated)
+                             VALUES (:post_id, :username, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)');
+      $stmt->bindParam("post_id", $post_id);
+      $stmt->bindParam("username", $username);
+      $stmt->execute();
+
+      $code = 201;
+  }
+
+  $likes = $likes + $added;
 
   $stmt = $pdo->prepare('UPDATE Posts SET likes=:likes WHERE post_id=:post_id');
   $stmt->bindParam("likes", $likes);
   $stmt->bindParam("post_id", $post_id);
   $stmt->execute();
 
-  return $response->withStatus(200);
+  return $response->withStatus($code);
 });
