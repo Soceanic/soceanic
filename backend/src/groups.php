@@ -45,7 +45,7 @@ $app->put('/group/{username1}/{username2}/{group_id}', function ($request, $resp
 });
 
 // Change group priority
-$app->put('/group/{username}/{priority}/{group_id}', function ($request, $response, $args) {
+$app->put('/group/priority/{username}/{priority}/{group_id}', function ($request, $response, $args) {
     $username = $args['username'];
     $priority = $args['priority'];
     $group_id = $args['group_id'];
