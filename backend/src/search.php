@@ -17,7 +17,7 @@ $app->get('/search/{term}', function ($request, $response, $args) {
                            AND verified=1');
     $stmt->bindParam("term", $term);
     $stmt->execute();
-    while($row = $stmt->fetch(FETCH::ASSOC)) {
+    while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
       $data[] = $row;
     }
 
@@ -28,7 +28,7 @@ $app->get('/search/{term}', function ($request, $response, $args) {
                            OR text like "%:term%"');
     $stmt->bindParam("term", $term);
     $stmt->execute();
-    while($row = $stmt->fetch(FETCH::ASSOC)) {
+    while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
       $data[] = $row;
     }
 
