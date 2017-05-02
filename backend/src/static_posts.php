@@ -81,7 +81,7 @@ $app->put('/post/upvote', function($request, $response, $args) {
       return $response->withStatus(418);
     }
 
-    $stmt = $pdo-prepare('SELECT likes FROM Posts WHERE post_id=:post_id');
+    $stmt = $pdo->prepare('SELECT likes FROM Posts WHERE post_id=:post_id');
     $stmt->bindParam("post_id", $post_id);
     $stmt->execute();
     $likes = $stmt->fetchColumn();
@@ -153,7 +153,7 @@ $app->put('/post/downvote', function($request, $response, $args) {
     return $response->withStatus(418);
   }
 
-  $stmt = $pdo-prepare('SELECT likes FROM Posts WHERE post_id=:post_id');
+  $stmt = $pdo->prepare('SELECT likes FROM Posts WHERE post_id=:post_id');
   $stmt->bindParam("post_id", $post_id);
   $stmt->execute();
   $likes = $stmt->fetchColumn();
