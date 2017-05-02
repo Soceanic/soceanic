@@ -153,7 +153,7 @@ function create_email($link) {
           			<tr><td align="center">
           			    		<a href="#" target="_blank" style="color: #596167; font-family: Arial, Helvetica, sans-serif; float:left; width:100%; padding:20px;text-align:center; font-size: 13px;">
           									<font face="Arial, Helvetica, sans-seri; font-size: 13px;" size="3" color="#596167">
-          									<img src="https://s3.us-east-2.amazonaws.com/images.soceanic.me/email_banner.png" width="120" alt="Metronic" border="0"  /></font></a>
+          									<img src="https://s3.us-east-2.amazonaws.com/images.soceanic.me/email_banner.png" width="300" alt="Metronic" border="0"  /></font></a>
           					</td>
           					<td align="right">
           				<!--[endif]--><!--
@@ -173,7 +173,7 @@ function create_email($link) {
           				<div style="line-height: 44px;">
           					<font face="Arial, Helvetica, sans-serif" size="5" color="#57697e" style="font-size: 34px;">
           					<span style="font-family: Arial, Helvetica, sans-serif; font-size: 34px; color: #57697e;">
-          						Soceanic
+          						Thanks for Joining Us!
           					</span></font>
           				</div>
           				<!-- padding --><div style="height: 40px; line-height: 40px; font-size: 10px;"></div>

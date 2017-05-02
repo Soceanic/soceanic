@@ -33,7 +33,7 @@ $app->get('/users/{username}', function($request, $response, $args) {
       $stmt->bindParam("views", $views);
       $stmt->execute();
 
-      return $response->withJson($user, 302);
+      return $response->withJson($user, 200);
     } else {
       return $response->withStatus(404);
     }
