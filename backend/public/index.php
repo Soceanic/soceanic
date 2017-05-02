@@ -32,6 +32,7 @@ require __DIR__ . '/../src/static_groups.php';
 require __DIR__ . '/../src/static_box.php';
 // Put all static routes above this line cause fuck php and slim in particular
 require __DIR__ . '/../src/registration.php';
+require __DIR__ . '/../src/search.php';
 require __DIR__ . '/../src/box.php';
 require __DIR__ . '/../src/groups.php';
 require __DIR__ . '/../src/posts.php';
