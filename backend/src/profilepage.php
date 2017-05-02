@@ -8,7 +8,7 @@ $app->get('/users/{username}', function($request, $response, $args) {
     $username = $args['username'];
 
     // Ensure the $username field is populated
-    if ( !isset($username) || !empty($username) ){
+    if ( !isset($username) || empty($username) ){
 	     return $response->withStatus(418);
     }
 
