@@ -87,7 +87,7 @@ $app->get('/feed/{username}', function($request, $response, $args) {
 });
 
 // Deletes a post
-$app->get('/delete/post/{post_id}', function($request, $response, $args) {
+$app->delete('/delete/post/{post_id}', function($request, $response, $args) {
     $pdo = $this->db;
     $post_id = $args['post_id'];
 
@@ -99,4 +99,33 @@ $app->get('/delete/post/{post_id}', function($request, $response, $args) {
     $posts_sql->execute();
 
     return $response->withJson($data, 200);
+});
+
+// Returns the vote status for the post
+$app->get('/vote/{username}/{post_id}', function($request, $response, $args) {
+    $pdo = $this->db;
+    $username = $args['username'];
+    $post_id = $args['post_id'];
+
+    $stmt = $pdo->prepare(
+    	'SELECT upvote, downvote FROM Votes WHERE username=:username AND post_id=:post_id'
+    );
+    $stmt->bindParam("username", $username);
+    $stmt->bindParam("post_id", $post_id);
+    $stmt->execute();
+    $status = $stmt->fetch();
+
+    if(!$status) {
+      return $response->withStatus(404);
+    }
+
+    if($status['upvote'] == 1) {
+      $data = array("status" => "upvote" );
+    } elseif ($status['downvote'] == 1) {
+      $data = array("status" => "downvote" );
+    } else {
+      $data = array("status" => "none" );
+    }
+
+    return $response->withJson($data, 302);
 });
