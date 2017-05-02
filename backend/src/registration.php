@@ -52,7 +52,7 @@ $app->post('/user', function ($request, $response, $args) {
     // Add the entry to the array once all the fields have been verified
     $stmt = $pdo->prepare(
       "INSERT INTO Users (username, first_name, last_name, email,
-       password, profile_pic birthday, verified, last_login, date_joined, last_updated, profile_views)
+       password, profile_pic, birthday, verified, last_login, date_joined, last_updated, profile_views)
        VALUES (:username, :first_name, :last_name, :email, :password, 'https://s3.us-east-2.amazonaws.com/images.soceanic.me/profile1.png',
          :birthday, 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 0)"
       );
