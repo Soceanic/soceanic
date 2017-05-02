@@ -55,7 +55,7 @@ $app->put('/group/{username}/{priority}/{group_id}', function ($request, $respon
       return $response->withStatus(418);
     }
 
-    $stmt = $pdo->prepare('SELECT * FROM ')
+    $stmt = $pdo->prepare('SELECT * FROM ');
 });
 
 // Delete group
