@@ -15,7 +15,7 @@ $app->get('/users/{username}', function($request, $response, $args) {
     // This sequence stores the user in $user
     $sql_get_user = $pdo->prepare(
     	'SELECT username, first_name, last_name, profile_pic, bg_pic, bio, birthday
-          FROM users WHERE username=:username'
+          FROM Users WHERE username=:username'
     );
     $sql_get_user->bindParam("username", $username);
     $sql_get_user->execute();
