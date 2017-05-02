@@ -1,13 +1,22 @@
-<div class="container">
-	<div class="loginpage">
-		<h1>Login</h1>
-		<div class="loginForm">
-		  <form [formGroup]="form" (ngSubmit)="login()">
-		    <input type="text" class="form-control" placeholder="Username" formControlName="username">
-		    <input type="password" class="form-control" placeholder="Password" formControlName="password">
-		  </form>
-		  <button type="submit" class="btn btn-success">Login</button>
-		  <p *ngIf="err">Login failed</p>
+<div class="modal fade" id="login-modal">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Login</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<div class="modal-body" class="loginForm">
+					<form [formGroup]="form" (ngSubmit)="login()">
+						<input type="text" class="form-control" placeholder="Username" formControlName="username">
+						<input type="password" class="form-control" placeholder="Password" formControlName="password">
+					</form>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-success">Login</button>
+						<p *ngIf="err">Login failed</p>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

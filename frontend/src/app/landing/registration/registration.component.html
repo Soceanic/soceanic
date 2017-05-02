@@ -1,14 +1,25 @@
-<div class="registerpage">
-	<h1>Register</h1>
-	<div class="registrationForm">
-	  <form [formGroup]="form" (ngSubmit)="register()">
-	    <input type="text" class="form-control" placeholder="First Name" formControlName="first_name">
-	    <input type="text" class="form-control" placeholder="Last Name" formControlName="last_name">
-	    <input type="date" class="form-control" placeholder="Birthday MM/DD/YYYY" formControlName="birthday">
-	    <input type="text" class="form-control" placeholder="Username" formControlName="username">
-	    <input type="email" class="form-control" placeholder="Email" formControlName="email">
-	    <input type="password" class="form-control" placeholder="Password" formControlName="password">
-	  </form>
-	  <button type="submit" class="btn btn-success">Register</button>
+<div class="modal fade" id="registration-modal">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Register</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<div class="modal-body" class="registrationForm">
+					<form [formGroup]="form" (ngSubmit)="register()">
+						<input type="text" class="form-control" placeholder="First Name" formControlName="first_name">
+						<input type="text" class="form-control" placeholder="Last Name" formControlName="last_name">
+						<input type="date" class="form-control" placeholder="Birthday MM/DD/YYYY" formControlName="birthday">
+						<input type="text" class="form-control" placeholder="Username" formControlName="username">
+						<input type="email" class="form-control" placeholder="Email" formControlName="email">
+						<input type="password" class="form-control" placeholder="Password" formControlName="password">
+					</form>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-success">Register</button>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>

@@ -11,19 +11,19 @@ export class NavComponent implements OnInit {
   links = [
     {
       'url': '/home',
-      'name': 'Home'
+      'name': ' Home'
     },
     {
       'url': '/login',
-      'name': 'Login'
+      'name': ' Login'
     },
     {
       'url': '/register',
-      'name': 'Registration'
+      'name': ' Registration'
     },
     {
       'url': '/members',
-      'name': 'Soceanic Members'
+      'name': ' Members'
     }
   ];
 

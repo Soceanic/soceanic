@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RegistrationComponent } from '../registration/registration.component';
+import { LoginComponent } from '../login/login.component';
 
 @Component({
   selector: 'app-landing',
