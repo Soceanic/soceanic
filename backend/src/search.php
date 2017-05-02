@@ -1,6 +1,6 @@
 <?php
 
-$app->get('/group/{term}', function ($request, $response, $args) {
+$app->get('/search/{term}', function ($request, $response, $args) {
     $pdo = $this->db;
     $term = $args['term'];
 
