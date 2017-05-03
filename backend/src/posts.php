@@ -80,7 +80,7 @@ $app->get('/feed/{username}', function($request, $response, $args) {
                            ORDER BY post_id DESC'
     );
 
-    $posts_spl->bindParam("username", $username);
+    $stmt->bindParam("username", $username);
     $stmt->execute();
     $data = [];
     while($post = $stmt->fetch(PDO::FETCH_ASSOC)) {
