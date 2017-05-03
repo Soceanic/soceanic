@@ -11,6 +11,7 @@ $app->post('/post', function ($request, $response, $args) {
     $username = $data->username;
     $title = $data->title;
     $text = $data->text;
+    $attach = $data->attach;
 
     // Verify that username is set and exists
     if (!isset($username) || empty($username)) {
@@ -27,43 +28,21 @@ $app->post('/post', function ($request, $response, $args) {
       return $response->withStatus(404);
     }
 
-     // Add the entry to the DB once all the fields have been verified
+    // Add the entry to the DB once all the fields have been verified
     $stmt = $pdo->prepare(
-      "INSERT INTO Posts (username, title, text,
+      "INSERT INTO Posts (username, title, text, attachment,
        likes, date_created, last_updated)
-       VALUES (:username, :title, :text, 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)"
+       VALUES (:username, :title, :text, :attachment, 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)"
       );
 
     $stmt->bindParam("username", $username);
     $stmt->bindParam("title", $title);
     $stmt->bindParam("text", $text);
-    $stmt->execute();
-
-    $file = $request->getUploadedFiles()['img'];
-    if(!isset($file)) {
-      return $reponse->withStatus(201);
+    if(!isset($attach) || empty($attach)) {
+      $stmt->bindParam("attachment", NULL);
+    } else {
+      $stmt->bindParam("attachment", $attach);
     }
-
-    $file->moveTo('../../');
-
-    // Find the post id
-    $stmt = $pdo->prepare(
-      "SELECT MAX(post_id) FROM Posts WHERE username=:username"
-    );
-
-    $stmt->bindParam("username", $username);
-    $stmt->execute();
-    $post_id = $stmt->fetchColumn();
-
-    // Upload the file
-    $link = upload_image('../../temp.png', $post_id);
-    unlink('../../temp.png');
-
-    $stmt = $pdo->prepare('UPDATE Posts SET attachment=:link
-                          WHERE username=:username AND post_id=:post_id');
-    $stmt->bindParam("link", $link);
-    $stmt->bindParam("username", $username);
-    $stmt->bindParam("post_id", $post_id);
     $stmt->execute();
 
     return $response->withStatus(201);
