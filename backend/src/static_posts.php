@@ -29,20 +29,24 @@ $app->post('/post', function ($request, $response, $args) {
     }
 
     // Add the entry to the DB once all the fields have been verified
-    $stmt = $pdo->prepare(
-      "INSERT INTO Posts (username, title, text, attachment,
-       likes, date_created, last_updated)
-       VALUES (:username, :title, :text, :attachment, 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)"
-      );
+    if(!isset($attach) || empty($attach)) {
+      $stmt = $pdo->prepare(
+        "INSERT INTO Posts (username, title, text,
+         likes, date_created, last_updated)
+         VALUES (:username, :title, :text, :attachment, 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)"
+        );
+    } else {
+      $stmt = $pdo->prepare(
+        "INSERT INTO Posts (username, title, text, attachment,
+         likes, date_created, last_updated)
+         VALUES (:username, :title, :text, :attachment, 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)"
+        );
+      $stmt->bindParam("attachment", $attach);
+    }
 
     $stmt->bindParam("username", $username);
     $stmt->bindParam("title", $title);
     $stmt->bindParam("text", $text);
-    if(!isset($attach) || empty($attach)) {
-      $stmt->bindParam("attachment", NULL);
-    } else {
-      $stmt->bindParam("attachment", $attach);
-    }
     $stmt->execute();
 
     return $response->withStatus(201);
