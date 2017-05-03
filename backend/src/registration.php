@@ -52,8 +52,8 @@ $app->post('/user', function ($request, $response, $args) {
     // Add the entry to the array once all the fields have been verified
     $stmt = $pdo->prepare(
       "INSERT INTO Users (username, first_name, last_name, email,
-       password, birthday, verified, last_login, date_joined, last_updated, profile_views)
-       VALUES (:username, :first_name, :last_name, :email, :password,
+       password, profile_pic, birthday, verified, last_login, date_joined, last_updated, profile_views)
+       VALUES (:username, :first_name, :last_name, :email, :password, 'https://s3.us-east-2.amazonaws.com/images.soceanic.me/profile1.png',
          :birthday, 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 0)"
       );
 
@@ -82,5 +82,5 @@ $app->get('/token/{token}', function ($request, $response, $args) {
     $stmt->bindParam("username", $username);
     $stmt->execute();
 
-    return $response->withStatus(200);
+    return $response->withStatus(302)->withHeader('Location', '/');
 });

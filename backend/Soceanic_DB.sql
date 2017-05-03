@@ -81,6 +81,18 @@ CREATE TABLE Box_Saves (
     )
 );
 
+CREATE TABLE Votes (
+    post_id int NOT NULL,
+    username varchar(20) NOT NULL,
+    upvote smallint DEFAULT 0,
+    downvote smallint DEFAULT 0,
+    date_created date NOT NULL,
+    last_updated date NOT NULL,
+    CONSTRAINT pk_Likes PRIMARY KEY (
+        post_id, username
+    )
+);
+
 ALTER TABLE Relationships ADD CONSTRAINT fk_Relationships_username_1 FOREIGN KEY(username_1)
 REFERENCES Users (username);
 
