@@ -48,7 +48,7 @@ $app->get('/posts/{username}', function($request, $response, $args) {
 
     // Retrieve the user's posts
     $posts_sql = $pdo->prepare(
-    	'SELECT * FROM Posts WHERE username=:username ORDER BY CONVERT(DateTime, date_created, 101) ASC'
+    	'SELECT * FROM Posts WHERE username=:username ORDER BY CONVERT(DateTime, date_created, 101) DESC'
     );
     $posts_sql->bindParam("username", $username);
     $posts_sql->execute();
@@ -73,7 +73,7 @@ $app->get('/feed/{username}', function($request, $response, $args) {
                            OR username IN ( SELECT username_2
                                             FROM Relationships
                                             WHERE username_1=:username )
-                           ORDER BY date_created DESC'
+                           ORDER BY CONVERT(DateTime, date_created, 101) DESC'
     );
 
     $posts_spl->bindParam("username", $username);
