@@ -11,7 +11,6 @@ $app->post('/post', function ($request, $response, $args) {
     $username = $data->username;
     $title = $data->title;
     $text = $data->text;
-    $attach = $data->attachment;
 
     // Verify that username is set and exists
     if (!isset($username) || empty($username)) {
@@ -40,9 +39,12 @@ $app->post('/post', function ($request, $response, $args) {
     $stmt->bindParam("text", $text);
     $stmt->execute();
 
-    if (!isset($attach) || empty($attach)) {
-        return $response->withStatus(201);
+    $file = $request->getUploadedFiles()['img'];
+    if(!isset($file)) {
+      return $reponse->withStatus(201);
     }
+
+    $file->moveTo('../../');
 
     // Find the post id
     $stmt = $pdo->prepare(
@@ -54,7 +56,8 @@ $app->post('/post', function ($request, $response, $args) {
     $post_id = $stmt->fetchColumn();
 
     // Upload the file
-    $link = upload_image($attach, $post_id);
+    $link = upload_image('../../temp.png', $post_id);
+    unlink('../../temp.png');
 
     $stmt = $pdo->prepare('UPDATE Posts SET attachment=:link
                           WHERE username=:username AND post_id=:post_id');
