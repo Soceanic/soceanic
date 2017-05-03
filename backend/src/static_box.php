@@ -25,6 +25,17 @@ $app->post('/post/save', function ($request, $response, $args) {
       return $response->withStatus(404);
     }
 
+    // Check that the post exists in the box
+    $stmt = $pdo->prepare('SELECT * FROM Box_Saves WHERE username=:username AND post_id=:post_id');
+    $stmt->bindParam("username", $username);
+    $stmt->bindParam("post_id", $post_id);
+    $stmt->execute();
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    if(!$row)
+    {
+      return $response->withStatus(302);
+    }
+
     $creator = $row['username'];
 
     $stmt = $pdo->prepare('INSERT INTO Box_Saves (username, post_id, post_creator, date_added)
