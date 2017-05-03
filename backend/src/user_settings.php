@@ -10,6 +10,8 @@ $app->put('/user', function ($request, $response, $args) {
     $birthday = $data->birthday;
     $email = $data->email;
     $plain_password = $data->password;
+    $profile_pic = $data->profile_pic;
+    $bg_pic = $data->bg_pic;
 
     if (isset($first_name) && !empty($first_name)) {
       $stmt = $pdo->prepare(
@@ -62,5 +64,23 @@ $app->put('/user', function ($request, $response, $args) {
       }
     }
 
-    return $response->withStatus(201);
+    if (isset($profile_pic) && !empty($profile_pic)) {
+      $stmt = $pdo->prepare(
+          "UPDATE Users SET profile_pic=:profile_pic WHERE username=:username"
+          );
+      $stmt->bindParam("username", $username);
+      $stmt->bindParam("profile_pic", $profile_pic);
+      $stmt->execute();
+    }
+
+    if (isset($bg_pic) && !empty($bg_pic)) {
+      $stmt = $pdo->prepare(
+          "UPDATE Users SET bg_pic=:bg_pic WHERE username=:username"
+          );
+      $stmt->bindParam("username", $username);
+      $stmt->bindParam("bg_pic", $bg_pic);
+      $stmt->execute();
+    }
+
+    return $response->withStatus(200);
 });
