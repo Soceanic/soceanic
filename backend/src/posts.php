@@ -77,6 +77,7 @@ $app->get('/feed/{username}', function($request, $response, $args) {
                            OR username IN ( SELECT username_2
                                             FROM Relationships
                                             WHERE username_1=:username )
+                           OR username=:username
                            ORDER BY post_id DESC'
     );
 
