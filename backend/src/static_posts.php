@@ -77,8 +77,9 @@ $app->put('/post/upvote', function($request, $response, $args) {
     $username = $data->username;
     $post_id = $data->post_id;
 
-    if ( !isset($post_id) || empty($post_id) ) {
-      return $response->withStatus(418);
+    if (!isset($username) || !isset($post_id) ||
+         empty($username) || empty($post_id)) {
+        return $response->withStatus(418);
     }
 
     $stmt = $pdo->prepare('SELECT likes FROM Posts WHERE post_id=:post_id');
@@ -97,7 +98,7 @@ $app->put('/post/upvote', function($request, $response, $args) {
     $stmt->bindParam("username", $username);
     $stmt->bindParam("post_id", $post_id);
     $stmt->execute();
-    $row = $stmt->fetch(FETCH::ASSOC);
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if($row) {
       if($row['upvote'] == 1) {
@@ -149,8 +150,9 @@ $app->put('/post/downvote', function($request, $response, $args) {
   $username = $data->username;
   $post_id = $data->post_id;
 
-  if ( !isset($post_id) || empty($post_id) ) {
-    return $response->withStatus(418);
+  if (!isset($username) || !isset($post_id) ||
+       empty($username) || empty($post_id)) {
+      return $response->withStatus(418);
   }
 
   $stmt = $pdo->prepare('SELECT likes FROM Posts WHERE post_id=:post_id');
@@ -158,7 +160,7 @@ $app->put('/post/downvote', function($request, $response, $args) {
   $stmt->execute();
   $likes = $stmt->fetchColumn();
 
-  if(!$likes) {
+  if(!isset($likes)) {
     return $response->withStatus(404);
   }
 
@@ -169,7 +171,7 @@ $app->put('/post/downvote', function($request, $response, $args) {
   $stmt->bindParam("username", $username);
   $stmt->bindParam("post_id", $post_id);
   $stmt->execute();
-  $row = $stmt->fetch(FETCH::ASSOC);
+  $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
   if($row) {
     if($row['upvote'] == 1) {
