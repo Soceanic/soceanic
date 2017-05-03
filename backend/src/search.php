@@ -10,24 +10,12 @@ $app->get('/search/{term}', function ($request, $response, $args) {
 
     $data = [];
     $term = '%' . $term . '%';
-    $stmt = $pdo->prepare('SELECT username, first_name, last_name, profile_pic
+    $stmt = $pdo->prepare('SELECT username
                            FROM Users
                            WHERE username like :term
                            OR first_name like :term
                            OR last_name like :term
                            AND verified=1');
-    $stmt->bindParam("term", $term);
-    $stmt->execute();
-    while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-      $data[] = $row;
-    }
-
-    $stmt = $pdo->prepare('SELECT post_id, username, title, text, likes, date_created, last_updated
-                           FROM Posts
-                           WHERE username like :term
-                           OR title like :term
-                           OR text like :term
-                           ORDER BY post_id DESC');
     $stmt->bindParam("term", $term);
     $stmt->execute();
     while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
