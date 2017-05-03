@@ -65,6 +65,10 @@ $app->get('/feed/{username}', function($request, $response, $args) {
     $pdo = $this->db;
     $username = $args['username'];
 
+    if (!isset($username) || empty($username)) {
+        return $response->withStatus(418);
+    }
+
     $posts_sql = $pdo->prepare(
     	'SELECT * FROM Posts WHERE username IN ( SELECT username_1
                                                FROM Relationships
