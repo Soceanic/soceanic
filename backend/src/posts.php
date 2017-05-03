@@ -33,7 +33,7 @@ $app->get('/post/{post_id}', function ($request, $response, $args) {
     }
 
 
-    return $response->withJson($data, 302);
+    return $response->withJson($data, 200);
 });
 
 // Takes in a username and returns the user's posts
@@ -57,7 +57,7 @@ $app->get('/posts/{username}', function($request, $response, $args) {
       $data[] = $post;
     }
 
-    return $response->withJson($data, 302);
+    return $response->withJson($data, 200);
 });
 
 // Returns all of the posts from all users
@@ -83,7 +83,7 @@ $app->get('/feed/{username}', function($request, $response, $args) {
       $data[] = $post;
     }
 
-    return $response->withJson($data, 302);
+    return $response->withJson($data, 200);
 });
 
 // Deletes a post
@@ -98,7 +98,7 @@ $app->delete('/delete/post/{post_id}', function($request, $response, $args) {
     $posts_spl->bindParam("post_id", $post_id);
     $posts_sql->execute();
 
-    return $response->withJson($data, 200);
+    return $response->withJson($data, 204);
 });
 
 // Returns the vote status for the post
@@ -127,5 +127,5 @@ $app->get('/vote/{username}/{post_id}', function($request, $response, $args) {
       $data = array("status" => "none" );
     }
 
-    return $response->withJson($data, 302);
+    return $response->withJson($data, 200);
 });

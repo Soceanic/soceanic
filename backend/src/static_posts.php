@@ -108,7 +108,7 @@ $app->put('/post/upvote', function($request, $response, $args) {
         $stmt->bindParam("post_id", $post_id);
         $stmt->execute();
 
-        $code = 302;
+        $code = 200;
       } elseif ($row['downvote'] == 1 ) {
         $added = 2;
 
@@ -180,7 +180,7 @@ $app->put('/post/downvote', function($request, $response, $args) {
       $stmt->bindParam("post_id", $post_id);
       $stmt->execute();
 
-      $code = 302;
+      $code = 200;
     } elseif ($row['downvote'] == 1 ) {
       $added = 1;
 

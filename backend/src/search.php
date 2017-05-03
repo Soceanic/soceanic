@@ -33,5 +33,5 @@ $app->get('/search/{term}', function ($request, $response, $args) {
       $data[] = $row;
     }
 
-    return $response->withJson($data, 302);
+    return $response->withJson($data, 200);
 });

@@ -24,7 +24,7 @@ $app->get('/box/{username}', function ($request, $response, $args) {
       $data[] = $post;
     }
 
-    return $response->withJson($data, 302);
+    return $response->withJson($data, 200);
 });
 
 // Get box on friend's profile
@@ -54,5 +54,5 @@ $app->get('/box/{username}/{friend}', function ($request, $response, $args) {
       $data[] = $post;
     }
 
-    return $response->withJson($data, 302);
+    return $response->withJson($data, 200);
 });
