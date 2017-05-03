@@ -45,7 +45,7 @@ $app->post('/user/login', function ($request, $response, $args) {
               'username' => $username,     // User name
           ];
 
-          $token = JWT::encode($payload, $_SERVER['SECRET_KEY'], array('HS256'));
+          $token = JWT::encode($payload, $_SERVER['SECRET_KEY']);
           $json = json_encode(array(
                                 "jwt" => $token
                               ));
