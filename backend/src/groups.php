@@ -74,7 +74,7 @@ $app->get('/group/{username}', function ($request, $response, $args) {
         $group_id = $row['group_id'];
 
         $stmt = $pdo->prepare('SELECT first_name, last_name, username, profile_pic
-                               FROM Users WHERE ')
+                               FROM Users WHERE ');
       }
     }
 });
