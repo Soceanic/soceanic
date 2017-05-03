@@ -82,5 +82,5 @@ $app->get('/token/{token}', function ($request, $response, $args) {
     $stmt->bindParam("username", $username);
     $stmt->execute();
 
-    return $response->withStatus(200);
+    return $response->withStatus(302)->withHeader('Location', '/');
 });
