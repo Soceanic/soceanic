@@ -100,21 +100,63 @@ $app->get('/group/{username}', function ($request, $response, $args) {
 });
 
 // Change group priority
-$app->put('/group/priority/{username}/{priority}/{group_id}', function ($request, $response, $args) {
-    $pdo = $this->db;
-    $username = $args['username'];
-    $priority = $args['priority'];
-    $group_id = $args['group_id'];
-
-    if( !isset($username) || !isset($priority) || !isset($group_id) ||
-        empty($username) || empty($priority) || empty($group_id)) {
-      return $response->withStatus(418);
-    }
-
-    $stmt = $pdo->prepare('SELECT * FROM ');
-});
+// $app->put('/group/priority/{username}/{priority}/{group_id}', function ($request, $response, $args) {
+//     $pdo = $this->db;
+//     $username = $args['username'];
+//     $priority = $args['priority'];
+//     $group_id = $args['group_id'];
+//
+//     if( !isset($username) || !isset($priority) || !isset($group_id) ||
+//         empty($username) || empty($priority) || empty($group_id)) {
+//       return $response->withStatus(418);
+//     }
+//
+//     $stmt = $pdo->prepare('SELECT * FROM ');
+// });
 
 // Delete group
 $app->delete('/group/{username}/{group_id}', function ($request, $response, $args) {
+  $pdo = $this->db;
+  $username = $args['username'];
+  $group_id = $args['group_id'];
 
+  if( !isset($username) || !isset($group_id) ||
+      empty($username) || empty($group_id)) {
+    return $response->withStatus(418);
+  }
+
+  $stmt = $pdo->prepare('SELECT * FROM Groups WHERE username=:username AND group_id=:group_id');
+  $stmt->bindParam("username", $username);
+  $stmt->bindParam("group_id", $group_id);
+  $stmt->execute();
+  $row = $stmt->fetch();
+
+  if(!$row) {
+    return $response->withStatus(404);
+  }
+
+  $stmt = $pdo->prepare('DELETE FROM Groups WHERE username=:username AND group_id=:group_id');
+  $stmt->bindParam("username", $username);
+  $stmt->bindParam("group_id", $group_id);
+  $stmt->execute();
+
+  $stmt = $pdo->prepare('UPDATE Relationships SET group_id_1=NULL WHERE username IN (SELECT username_2
+                                                                                     FROM Relationships
+                                                                                     WHERE username_2=:username
+                                                                                     AND group_id_1=:group_id
+                                                                                     AND status=1)');
+  $stmt->bindParam("username", $username);
+  $stmt->bindParam("group_id", $group_id);
+  $stmt->execute();
+
+  $stmt = $pdo->prepare('UPDATE Relationships SET group_id_2=NULL WHERE username IN (SELECT username_1
+                                                                                     FROM Relationships
+                                                                                     WHERE username_1=:username
+                                                                                     AND group_id_2=:group_id
+                                                                                     AND status=1)');
+  $stmt->bindParam("username", $username);
+  $stmt->bindParam("group_id", $group_id);
+  $stmt->execute();
+
+  return $response->withStatus(204);
 });

@@ -64,23 +64,3 @@ $app->put('/user', function ($request, $response, $args) {
 
     return $response->withStatus(201);
 });
-
-$app->delete('/user', function ($request, $response, $args) {
-    $pdo = $this->db;
-    $json = $request->getBody();
-    $data = json_decode($json);
-    $username = $data->username;
-
-    if( !isset($username) || empty($username)) {
-
-      return $response->withStatus(418);
-    }
-
-    $stmt = $pdo->prepare(
-        "DELETE FROM Users WHERE username=:username"
-        );
-    $stmt->bindParam("username", $username);
-    $stmt->execute();
-
-    return $response->withStatus(204);
-});
