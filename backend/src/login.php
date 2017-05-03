@@ -72,13 +72,15 @@ $app->post('/user/login', function ($request, $response, $args) {
 $app->post('/upload', function ($request, $response, $args) {
     $pdo = $this->db;
     $file = $request->getUploadedFiles()['image'];
+    $uploadFileName = $file->getClientFilename();
+    $file->moveTo("../../" . $uploadFileName);
 
     // Generate an uuid for the file name
     $stmt = $pdo->prepare('SELECT UUID()');
     $stmt->execute();
     $uuid = $stmt->fetchColumn();
 
-    $data = array("path" => upload_image($file, $uuid));
-    unlink($file);
+    $data = array("path" => upload_image("../../" . $uploadFileName, $uuid));
+    unlink('../../temp.png');
     return $response->withJson($data, 201);
 });
