@@ -47,13 +47,13 @@ $app->get('/posts/{username}', function($request, $response, $args) {
     }
 
     // Retrieve the user's posts
-    $posts_sql = $pdo->prepare(
+    $stmt = $pdo->prepare(
     	'SELECT * FROM Posts WHERE username=:username ORDER BY post_id DESC'
     );
-    $posts_sql->bindParam("username", $username);
-    $posts_sql->execute();
+    $stmt->bindParam("username", $username);
+    $stmt->execute();
     $data = [];
-    while($post = $posts_sql->fetch(PDO::FETCH_ASSOC)) {
+    while($post = $stmt->fetch(PDO::FETCH_ASSOC)) {
       $data[] = $post;
     }
 
@@ -69,7 +69,7 @@ $app->get('/feed/{username}', function($request, $response, $args) {
         return $response->withStatus(418);
     }
 
-    $posts_sql = $pdo->prepare(
+    $stmt = $pdo->prepare(
     	'SELECT * FROM Posts WHERE username IN ( SELECT username_1
                                                FROM Relationships
                                                WHERE username_2=:username
@@ -81,9 +81,9 @@ $app->get('/feed/{username}', function($request, $response, $args) {
     );
 
     $posts_spl->bindParam("username", $username);
-    $posts_sql->execute();
+    $stmt->execute();
     $data = [];
-    while($post = $posts_sql->fetch(PDO::FETCH_ASSOC)) {
+    while($post = $stmt->fetch(PDO::FETCH_ASSOC)) {
       $data[] = $post;
     }
 
@@ -95,12 +95,16 @@ $app->delete('/delete/post/{post_id}', function($request, $response, $args) {
     $pdo = $this->db;
     $post_id = $args['post_id'];
 
-    $posts_sql = $pdo->prepare(
+    if (!isset($post_id) || empty($post_id)) {
+        return $response->withStatus(418);
+    }
+
+    $stmt = $pdo->prepare(
     	'DELETE FROM Posts WHERE post_id=:post_id'
     );
 
     $posts_spl->bindParam("post_id", $post_id);
-    $posts_sql->execute();
+    $stmt->execute();
 
     return $response->withJson($data, 204);
 });
@@ -110,6 +114,11 @@ $app->get('/vote/{username}/{post_id}', function($request, $response, $args) {
     $pdo = $this->db;
     $username = $args['username'];
     $post_id = $args['post_id'];
+
+    if (!isset($username) || !isset($post_id) ||
+        empty($username) || empty($post_id)) {
+        return $response->withStatus(418);
+    }
 
     $stmt = $pdo->prepare(
     	'SELECT upvote, downvote FROM Votes WHERE username=:username AND post_id=:post_id'
