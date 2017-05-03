@@ -48,7 +48,7 @@ $app->get('/posts/{username}', function($request, $response, $args) {
 
     // Retrieve the user's posts
     $posts_sql = $pdo->prepare(
-    	'SELECT * FROM Posts WHERE username=:username ORDER BY date_created DESC'
+    	'SELECT * FROM Posts WHERE username=:username ORDER BY CONVERT(DateTime, date_created, 101) ASC'
     );
     $posts_sql->bindParam("username", $username);
     $posts_sql->execute();

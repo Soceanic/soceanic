@@ -38,7 +38,7 @@ $app->post('/post/save', function ($request, $response, $args) {
 });
 
 // Remove post from box
-$app->post('/post/remove', function ($request, $response, $args) {
+$app->put('/post/remove', function ($request, $response, $args) {
     $pdo = $this->db;
     $json = $request->getBody();
     $data = json_decode($json);
