@@ -86,7 +86,7 @@ $app->put('/post/upvote', function($request, $response, $args) {
     $stmt->execute();
     $likes = $stmt->fetchColumn();
 
-    if(!$likes) {
+    if(!isset($likes)) {
       return $response->withStatus(404);
     }
 

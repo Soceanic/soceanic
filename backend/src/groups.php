@@ -74,9 +74,29 @@ $app->get('/group/{username}', function ($request, $response, $args) {
         $group_id = $row['group_id'];
 
         $stmt = $pdo->prepare('SELECT first_name, last_name, username, profile_pic
-                               FROM Users WHERE ');
+                               FROM Users WHERE usename IN (SELECT username_1
+                                                            FROM Relationships
+                                                            WHERE username_2=:username
+                                                            AND status=1
+                                                            AND group_id_1=:group_id)
+                                          OR username IN (SELECT username_2
+                                                          FROM Relationships
+                                                          WHERE username_1=:username
+                                                          AND status=1
+                                                          AND group_id_2=:group_id)
+                                          ORDER BY last_name ASC');
+        $stmt->bindParam("username", $username);
+        $stmt->bindParam("group_id", $group_id);
+        $stmt->execute();
+        while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+          $data[] = $row;
+        }
+
+        $priority = $priority - 1;
       }
     }
+
+    return $response->withJson($data, 200);
 });
 
 // Change group priority
