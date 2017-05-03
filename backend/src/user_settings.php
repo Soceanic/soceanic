@@ -9,6 +9,7 @@ $app->put('/user', function ($request, $response, $args) {
     $last_name = $data->last_name;
     $birthday = $data->birthday;
     $email = $data->email;
+    $bio = $data->bio;
     $plain_password = $data->password;
     $profile_pic = $data->profile_pic;
     $bg_pic = $data->bg_pic;
@@ -46,6 +47,15 @@ $app->put('/user', function ($request, $response, $args) {
           );
       $stmt->bindParam("username", $username);
       $stmt->bindParam("email", $email);
+      $stmt->execute();
+    }
+
+    if (isset($bio) && !empty($bio)) {
+      $stmt = $pdo->prepare(
+          "UPDATE Users SET bio=:bio WHERE username=:username"
+          );
+      $stmt->bindParam("username", $username);
+      $stmt->bindParam("bio", $bio);
       $stmt->execute();
     }
 
