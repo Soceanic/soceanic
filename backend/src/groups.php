@@ -44,8 +44,44 @@ $app->put('/group/{username1}/{username2}/{group_id}', function ($request, $resp
 
 });
 
+// Get a user's groups and the friends in each group by priority
+$app->get('/group/{username}', function ($request, $response, $args) {
+    $pdo = $this->db;
+    $username = $args['username'];
+
+    if( !isset($username) || empty($username)) {
+      return $response->withStatus(418);
+    }
+
+    // Gets the highest priority of this user's groups
+    $stmt = $pdo->prepare('SELECT MAX(priority) FROM Groups WHERE username=:username');
+    $stmt->bindParam("username", $username);
+    $stmt->execute();
+    $priority = $stmt->fetchColumn();
+
+    $data = [];
+
+    // Cycles through each priority starting from the highest and gets the users in each group
+    while($priority >= 0) {
+      $stmt = $pdo->prepare('SELECT group_name, group_id FROM Groups WHERE username=:username AND priority=:priority');
+      $stmt->bindParam("username", $username);
+      $stmt->bindParam("priority", $priority);
+      $stmt->execute();
+
+      while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $data[] = $row;
+        $group_name = $row['group_name'];
+        $group_id = $row['group_id'];
+
+        $stmt = $pdo->prepare('SELECT first_name, last_name, username, profile_pic
+                               FROM Users WHERE ')
+      }
+    }
+});
+
 // Change group priority
 $app->put('/group/priority/{username}/{priority}/{group_id}', function ($request, $response, $args) {
+    $pdo = $this->db;
     $username = $args['username'];
     $priority = $args['priority'];
     $group_id = $args['group_id'];

@@ -10,7 +10,8 @@ $app->post('/post/save', function ($request, $response, $args) {
     $post_id = $data->post_id;
 
     // Verify that username is set and exists
-    if (!isset($post_id) || empty($post_id)) {
+    if (!isset($username) || !isset($post_id) ||
+         empty($username) || empty($post_id)) {
         return $response->withStatus(418);
     }
 
@@ -47,7 +48,8 @@ $app->put('/post/remove', function ($request, $response, $args) {
     $post_id = $data->post_id;
 
     // Verify that username is set and exists
-    if (!isset($post_id) || empty($post_id)) {
+    if (!isset($username) || !isset($post_id) ||
+         empty($username) || empty($post_id)) {
         return $response->withStatus(418);
     }
 
