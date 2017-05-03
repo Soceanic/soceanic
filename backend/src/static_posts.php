@@ -33,7 +33,7 @@ $app->post('/post', function ($request, $response, $args) {
       $stmt = $pdo->prepare(
         "INSERT INTO Posts (username, title, text,
          likes, date_created, last_updated)
-         VALUES (:username, :title, :text, :attachment, 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)"
+         VALUES (:username, :title, :text, 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)"
         );
     } else {
       $stmt = $pdo->prepare(
