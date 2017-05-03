@@ -81,6 +81,6 @@ $app->post('/upload', function ($request, $response, $args) {
     $uuid = $stmt->fetchColumn();
 
     $data = array("path" => upload_image("../../" . $uploadFileName, $uuid));
-    unlink('../../temp.png');
+    unlink("../../" . $uploadFileName);
     return $response->withJson($data, 201);
 });
