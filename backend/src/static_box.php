@@ -31,7 +31,7 @@ $app->post('/post/save', function ($request, $response, $args) {
     $stmt->bindParam("post_id", $post_id);
     $stmt->execute();
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    if(!$row)
+    if($row)
     {
       return $response->withStatus(302);
     }
