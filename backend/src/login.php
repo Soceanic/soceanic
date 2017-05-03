@@ -71,7 +71,7 @@ $app->post('/user/login', function ($request, $response, $args) {
 // Image uploading
 $app->post('/upload', function ($request, $response, $args) {
     $pdo = $this->db;
-    $file = $request->getUploadedFiles()['img'];
+    $file = $request->getUploadedFiles()['image'];
     $file->moveTo('../../');
 
     // Generate an uuid for the file name
