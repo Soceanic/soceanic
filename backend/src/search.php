@@ -26,8 +26,7 @@ $app->get('/search/{term}', function ($request, $response, $args) {
                            FROM Posts
                            WHERE username like :term
                            OR title like :term
-                           OR text like :term
-                           ORDER BY CONVERT(DateTime, date_created, 101) DESC');
+                           OR text like :term');
     $stmt->bindParam("term", $term);
     $stmt->execute();
     while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
