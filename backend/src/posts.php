@@ -103,7 +103,7 @@ $app->delete('/delete/post/{post_id}', function($request, $response, $args) {
     	'DELETE FROM Posts WHERE post_id=:post_id'
     );
 
-    $posts_spl->bindParam("post_id", $post_id);
+    $stmt->bindParam("post_id", $post_id);
     $stmt->execute();
 
     return $response->withJson($data, 204);
